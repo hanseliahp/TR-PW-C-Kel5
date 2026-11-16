@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('follow_ups', function (Blueprint $table) {
+            $table->id();
+
+            // Tindak lanjut ikut terhapus bila pengaduannya dihapus
+            $table->foreignId('complaint_id')
+                ->constrained('complaints')
+                ->cascadeOnDelete();
+
+            // BR-05: catatan terhubung ke admin yang menulis
+            $table->foreignId('admin_id')
+                ->constrained('users')
+                ->restrictOnDelete();
+
+            $table->text('note');
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('follow_ups');
+    }
+};
