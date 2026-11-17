@@ -7,21 +7,25 @@
 @endsection
 
 @section('page_title', 'Daftar Pengaduan Fasilitas')
-@section('page_subtitle', 'Pantau, filter, dan kelola seluruh aspirasi keluhan sarana kampus dari pelapor.')
+@section('page_subtitle', 'Pantau, filter, tambah, ubah, dan kelola seluruh aspirasi keluhan sarana kampus dari pelapor.')
 
 @section('header_actions')
-    <a href="{{ url('/') }}" target="_blank" class="btn btn-outline-secondary btn-sm bg-white border">
-        <i class="bi bi-plus-circle"></i>
-        <span>Input Form Baru</span>
-    </a>
-    <a href="{{ route('admin.reports.index') }}" class="btn btn-sipfk-primary btn-sm">
+    <button type="button" class="btn btn-sipfk-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createComplaintModal">
+        <i class="bi bi-plus-lg"></i>
+        <span>Tambah Pengaduan</span>
+    </button>
+    <a href="{{ route('admin.reports.index') }}" class="btn btn-outline-secondary btn-sm bg-white border">
         <i class="bi bi-file-earmark-pdf"></i>
         <span>Unduh Laporan</span>
+    </a>
+    <a href="{{ url('/') }}" target="_blank" class="btn btn-light btn-sm border" title="Buka Form Publik">
+        <i class="bi bi-box-arrow-up-right"></i>
+        <span>Form Publik</span>
     </a>
 @endsection
 
 @section('content')
-{{-- Filter & Search Toolbar (AC-10 Responsif) --}}
+{{-- Filter & Search Toolbar (FR-05, AC-10 Responsif) --}}
 <div class="card card-sipfk border-0 shadow-sm mb-4">
     <div class="card-body p-3 p-md-4">
         <form method="GET" action="{{ route('admin.complaints.index') }}" class="row g-3 align-items-end">
@@ -83,15 +87,15 @@
     </div>
 </div>
 
-{{-- Tabel Daftar Pengaduan (NFR-02, AC-10) --}}
+{{-- Tabel Daftar Pengaduan (FR-05, NFR-02, AC-10) --}}
 <div class="card card-sipfk border-0 shadow-sm">
     <div class="card-header bg-white border-bottom py-3 px-3 px-md-4 d-flex justify-content-between align-items-center">
         <div>
             <h2 class="h6 fw-bold text-dark mb-0">Semua Data Pengaduan Fasilitas</h2>
-            <small class="text-muted">Klik tombol detail untuk memeriksa laporan dan menambahkan catatan tindak lanjut.</small>
+            <small class="text-muted">Kelola seluruh data laporan fasilitas kampus, detail tindak lanjut, ubah dan hapus aduan.</small>
         </div>
         <span class="badge bg-light text-dark border">
-            {{ isset($complaints) && is_object($complaints) && method_exists($complaints, 'total') ? $complaints->total() . ' Data' : '5 Data Terdaftar' }}
+            {{ isset($complaints) && is_object($complaints) && method_exists($complaints, 'total') ? $complaints->total() . ' Data' : '0 Data' }}
         </span>
     </div>
 
@@ -106,7 +110,7 @@
                     <th scope="col" style="min-width: 180px;">Lokasi Fasilitas</th>
                     <th scope="col" style="min-width: 220px;">Deskripsi Kerusakan</th>
                     <th scope="col" class="text-center" style="width: 120px;">Status</th>
-                    <th scope="col" class="text-end" style="width: 110px;">Aksi</th>
+                    <th scope="col" class="text-end" style="width: 130px;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -144,9 +148,31 @@
                             </td>
                             <td class="text-end">
                                 <div class="btn-group btn-group-sm">
+                                    {{-- Lihat Detail (FR-05, FR-06, FR-07) --}}
                                     <a href="{{ route('admin.complaints.show', $item->id) }}" class="btn btn-outline-primary btn-icon-sm" title="Lihat Detail & Tindak Lanjut">
                                         <i class="bi bi-eye"></i>
                                     </a>
+
+                                    {{-- Ubah Pengaduan (FR-05) --}}
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-outline-secondary btn-icon-sm" 
+                                        title="Ubah Data Pengaduan"
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#editComplaintModal"
+                                        data-id="{{ $item->id }}"
+                                        data-reporter="{{ $item->reporter_name }}"
+                                        data-category="{{ $item->category_id }}"
+                                        data-location="{{ $item->location }}"
+                                        data-date="{{ \Carbon\Carbon::parse($item->reported_at)->format('Y-m-d') }}"
+                                        data-description="{{ $item->description }}"
+                                        data-status="{{ $item->status }}"
+                                        data-action="{{ route('admin.complaints.update', $item->id) }}"
+                                    >
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+
+                                    {{-- Hapus Pengaduan (FR-05) --}}
                                     <button 
                                         type="button" 
                                         class="btn btn-outline-danger btn-icon-sm" 
@@ -154,7 +180,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#deleteConfirmModal"
                                         data-action="{{ route('admin.complaints.destroy', $item->id) }}"
-                                        data-name="Pengaduan dari {{ $item->reporter_name }}"
+                                        data-name="Pengaduan dari {{ $item->reporter_name }} ({{ $item->location }})"
                                     >
                                         <i class="bi bi-trash3"></i>
                                     </button>
@@ -163,88 +189,12 @@
                         </tr>
                     @endforeach
                 @else
-                    {{-- Dummy Fallback untuk Preview Tampilan Visual Seragam --}}
-                    @php
-                        $dummyRows = [
-                            [
-                                'id' => 1,
-                                'date' => '16 Nov 2026',
-                                'reporter' => 'Budi Pratama',
-                                'category' => 'Teknologi Informasi & Audio',
-                                'location' => 'Gedung B Lantai 3, Lab Jaringan',
-                                'desc' => 'Kabel HDMI proyektor putus sehingga tampilan ke layar tidak muncul saat perkuliahan.',
-                                'status' => 'baru',
-                            ],
-                            [
-                                'id' => 2,
-                                'date' => '15 Nov 2026',
-                                'reporter' => 'Siti Nurhaliza',
-                                'category' => 'Air & Sanitasi',
-                                'location' => 'Gedung A, Toilet Putri Lantai 1',
-                                'desc' => 'Kran wastafel bocor terus menerus dan genangan air membasahi lantai koridor depan toilet.',
-                                'status' => 'diproses',
-                            ],
-                            [
-                                'id' => 3,
-                                'date' => '14 Nov 2026',
-                                'reporter' => 'Hendro Santoso',
-                                'category' => 'Listrik & Kelistrikan',
-                                'location' => 'Ruang Dosen Gedung C',
-                                'desc' => 'Lampu neon berkedip-kedip dan stop kontak sudut ruangan mengeluarkan bau hangus.',
-                                'status' => 'selesai',
-                            ],
-                            [
-                                'id' => 4,
-                                'date' => '13 Nov 2026',
-                                'reporter' => 'Dewi Lestari',
-                                'category' => 'Perabot Ruang Kelas',
-                                'location' => 'Ruang Kuliah Teori RK-202',
-                                'desc' => 'Tiga kursi kuliah patah pada bagian sandaran tangan dan meja lipatnya goyang.',
-                                'status' => 'baru',
-                            ],
-                            [
-                                'id' => 5,
-                                'date' => '12 Nov 2026',
-                                'reporter' => 'Fajar Nugroho',
-                                'category' => 'Gedung & Infrastruktur Fisik',
-                                'location' => 'Tangga Utama Gedung Rektorat',
-                                'desc' => 'Keramik pijakan tangga nomor 4 retak dan tajam, berbahaya bagi mahasiswa yang melintas.',
-                                'status' => 'diproses',
-                            ],
-                        ];
-                    @endphp
-                    @foreach($dummyRows as $idx => $row)
-                        <tr>
-                            <td class="text-muted small fw-medium">{{ $idx + 1 }}</td>
-                            <td class="text-nowrap small"><i class="bi bi-calendar3 me-1 text-muted"></i> {{ $row['date'] }}</td>
-                            <td><div class="fw-semibold text-dark">{{ $row['reporter'] }}</div></td>
-                            <td><span class="badge bg-light text-dark border">{{ $row['category'] }}</span></td>
-                            <td>
-                                <div class="text-secondary small fw-medium">
-                                    <i class="bi bi-geo-alt-fill text-danger me-1"></i>
-                                    {{ $row['location'] }}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="small text-muted" title="{{ $row['desc'] }}">
-                                    {{ Str::limit($row['desc'], 55) }}
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                @include('components.status-badge', ['status' => $row['status']])
-                            </td>
-                            <td class="text-end">
-                                <div class="btn-group btn-group-sm">
-                                    <a href="{{ route('admin.complaints.show', $row['id']) }}" class="btn btn-outline-primary btn-icon-sm" title="Lihat Detail & Tindak Lanjut">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger btn-icon-sm" title="Hapus Pengaduan" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" data-action="#" data-name="Pengaduan dari {{ $row['reporter'] }}">
-                                        <i class="bi bi-trash3"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <td colspan="8" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-3 d-block mb-2 text-secondary"></i>
+                            Tidak ada data pengaduan yang ditemukan sesuai kriteria filter.
+                        </td>
+                    </tr>
                 @endif
             </tbody>
         </table>
@@ -255,4 +205,160 @@
         @include('components.pagination', ['paginator' => $complaints ?? null])
     </div>
 </div>
+
+{{-- Modal Tambah Pengaduan Baru (FR-05) --}}
+<div class="modal fade" id="createComplaintModal" tabindex="-1" aria-labelledby="createComplaintModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content card-sipfk border-0 shadow">
+            <div class="modal-header border-bottom py-3">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="stat-card-icon-bubble bg-primary-subtle text-primary" style="width: 32px; height: 32px; font-size: 0.95rem;">
+                        <i class="bi bi-plus-circle-fill"></i>
+                    </div>
+                    <h5 class="modal-title fs-6 fw-bold mb-0 text-dark" id="createComplaintModalLabel">Tambah Pengaduan Fasilitas (Admin)</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+            <form method="POST" action="{{ route('admin.complaints.store') }}">
+                @csrf
+                <div class="modal-body py-3">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label for="create_reporter_name" class="form-label-sipfk">Nama Lengkap Pelapor <span class="required-star">*</span></label>
+                            <input type="text" id="create_reporter_name" name="reporter_name" class="form-control form-control-sipfk" required maxlength="100" placeholder="Contoh: Budi Santoso">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="create_category_id" class="form-label-sipfk">Kategori Fasilitas <span class="required-star">*</span></label>
+                            <select id="create_category_id" name="category_id" class="form-select form-select-sipfk" required>
+                                <option value="" disabled selected>-- Pilih Kategori --</option>
+                                @if(isset($categories))
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="create_location" class="form-label-sipfk">Lokasi Fasilitas (Manual) <span class="required-star">*</span></label>
+                            <input type="text" id="create_location" name="location" class="form-control form-control-sipfk" required maxlength="150" placeholder="Contoh: Gedung B Lantai 2, Ruang 204">
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label for="create_reported_at" class="form-label-sipfk">Tanggal Laporan <span class="required-star">*</span></label>
+                            <input type="date" id="create_reported_at" name="reported_at" class="form-control form-control-sipfk" required value="{{ date('Y-m-d') }}">
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label for="create_status" class="form-label-sipfk">Status Awal <span class="required-star">*</span></label>
+                            <select id="create_status" name="status" class="form-select form-select-sipfk" required>
+                                <option value="baru" selected>Baru</option>
+                                <option value="diproses">Diproses</option>
+                                <option value="selesai">Selesai</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label for="create_description" class="form-label-sipfk">Deskripsi Masalah / Kerusakan <span class="required-star">*</span></label>
+                            <textarea id="create_description" name="description" rows="4" class="form-control form-control-sipfk" required placeholder="Jelaskan secara rinci rincian kerusakan atau masalah sarana..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top py-2">
+                    <button type="button" class="btn btn-light border px-3" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-sipfk-primary px-3">
+                        <i class="bi bi-check-lg"></i>
+                        <span>Simpan Pengaduan</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- Modal Ubah Pengaduan (Edit Admin - FR-05) --}}
+<div class="modal fade" id="editComplaintModal" tabindex="-1" aria-labelledby="editComplaintModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content card-sipfk border-0 shadow">
+            <div class="modal-header border-bottom py-3">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="stat-card-icon-bubble bg-secondary-subtle text-secondary" style="width: 32px; height: 32px; font-size: 0.95rem;">
+                        <i class="bi bi-pencil-square"></i>
+                    </div>
+                    <h5 class="modal-title fs-6 fw-bold mb-0 text-dark" id="editComplaintModalLabel">Ubah Data Pengaduan</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+            <form id="editComplaintForm" method="POST" action="">
+                @csrf
+                @method('PUT')
+                <div class="modal-body py-3">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label for="edit_reporter_name" class="form-label-sipfk">Nama Lengkap Pelapor <span class="required-star">*</span></label>
+                            <input type="text" id="edit_reporter_name" name="reporter_name" class="form-control form-control-sipfk" required maxlength="100">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="edit_category_id" class="form-label-sipfk">Kategori Fasilitas <span class="required-star">*</span></label>
+                            <select id="edit_category_id" name="category_id" class="form-select form-select-sipfk" required>
+                                @if(isset($categories))
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="edit_location" class="form-label-sipfk">Lokasi Fasilitas (Manual) <span class="required-star">*</span></label>
+                            <input type="text" id="edit_location" name="location" class="form-control form-control-sipfk" required maxlength="150">
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label for="edit_reported_at" class="form-label-sipfk">Tanggal Laporan <span class="required-star">*</span></label>
+                            <input type="date" id="edit_reported_at" name="reported_at" class="form-control form-control-sipfk" required>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label for="edit_status" class="form-label-sipfk">Status Penanganan <span class="required-star">*</span></label>
+                            <select id="edit_status" name="status" class="form-select form-select-sipfk" required>
+                                <option value="baru">Baru</option>
+                                <option value="diproses">Diproses</option>
+                                <option value="selesai">Selesai</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label for="edit_description" class="form-label-sipfk">Deskripsi Masalah / Kerusakan <span class="required-star">*</span></label>
+                            <textarea id="edit_description" name="description" rows="4" class="form-control form-control-sipfk" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top py-2">
+                    <button type="button" class="btn btn-light border px-3" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-sipfk-primary px-3">
+                        <i class="bi bi-save"></i>
+                        <span>Perbarui Pengaduan</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editModal = document.getElementById('editComplaintModal');
+        if (editModal) {
+            editModal.addEventListener('show.bs.modal', function (event) {
+                const btn = event.relatedTarget;
+                if (!btn) return;
+
+                const form = editModal.querySelector('#editComplaintForm');
+                form.setAttribute('action', btn.getAttribute('data-action') || '');
+
+                editModal.querySelector('#edit_reporter_name').value = btn.getAttribute('data-reporter') || '';
+                editModal.querySelector('#edit_category_id').value = btn.getAttribute('data-category') || '';
+                editModal.querySelector('#edit_location').value = btn.getAttribute('data-location') || '';
+                editModal.querySelector('#edit_reported_at').value = btn.getAttribute('data-date') || '';
+                editModal.querySelector('#edit_status').value = btn.getAttribute('data-status') || 'baru';
+                editModal.querySelector('#edit_description').value = btn.getAttribute('data-description') || '';
+            });
+        }
+    });
+</script>
+@endpush
 @endsection

@@ -17,6 +17,15 @@
     </a>
     <button 
         type="button" 
+        class="btn btn-outline-secondary btn-sm bg-white border"
+        data-bs-toggle="modal" 
+        data-bs-target="#editComplaintModal"
+    >
+        <i class="bi bi-pencil-square"></i>
+        <span>Ubah Data</span>
+    </button>
+    <button 
+        type="button" 
         class="btn btn-outline-danger btn-sm"
         data-bs-toggle="modal" 
         data-bs-target="#deleteConfirmModal"
@@ -207,4 +216,76 @@
         </div>
     </div>
 </div>
+
+@if(isset($complaint))
+{{-- Modal Ubah Pengaduan (Edit Admin) --}}
+<div class="modal fade" id="editComplaintModal" tabindex="-1" aria-labelledby="editComplaintModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content card-sipfk border-0 shadow">
+            <div class="modal-header border-bottom py-3">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="stat-card-icon-bubble bg-secondary-subtle text-secondary" style="width: 32px; height: 32px; font-size: 0.95rem;">
+                        <i class="bi bi-pencil-square"></i>
+                    </div>
+                    <h5 class="modal-title fs-6 fw-bold mb-0 text-dark" id="editComplaintModalLabel">Ubah Data Pengaduan #{{ $complaint->id }}</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+            <form method="POST" action="{{ route('admin.complaints.update', $complaint->id) }}">
+                @csrf
+                @method('PUT')
+                <div class="modal-body py-3">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label for="detail_edit_reporter" class="form-label-sipfk">Nama Lengkap Pelapor <span class="required-star">*</span></label>
+                            <input type="text" id="detail_edit_reporter" name="reporter_name" class="form-control form-control-sipfk" required maxlength="100" value="{{ $complaint->reporter_name }}">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="detail_edit_category" class="form-label-sipfk">Kategori Fasilitas <span class="required-star">*</span></label>
+                            <select id="detail_edit_category" name="category_id" class="form-select form-select-sipfk" required>
+                                @if(isset($categories))
+                                    @foreach($categories as $cat)
+                                        <option value="{{ $cat->id }}" {{ $complaint->category_id == $cat->id ? 'selected' : '' }}>
+                                            {{ $cat->name }}
+                                        </option>
+                                    @endforeach
+                                @else
+                                    <option value="{{ $complaint->category_id }}" selected>{{ $complaint->category->name ?? 'Kategori' }}</option>
+                                @endif
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="detail_edit_location" class="form-label-sipfk">Lokasi Fasilitas (Manual) <span class="required-star">*</span></label>
+                            <input type="text" id="detail_edit_location" name="location" class="form-control form-control-sipfk" required maxlength="150" value="{{ $complaint->location }}">
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label for="detail_edit_reported_at" class="form-label-sipfk">Tanggal Laporan <span class="required-star">*</span></label>
+                            <input type="date" id="detail_edit_reported_at" name="reported_at" class="form-control form-control-sipfk" required value="{{ \Carbon\Carbon::parse($complaint->reported_at)->format('Y-m-d') }}">
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label for="detail_edit_status" class="form-label-sipfk">Status Penanganan <span class="required-star">*</span></label>
+                            <select id="detail_edit_status" name="status" class="form-select form-select-sipfk" required>
+                                <option value="baru" {{ $complaint->status === 'baru' ? 'selected' : '' }}>Baru</option>
+                                <option value="diproses" {{ $complaint->status === 'diproses' ? 'selected' : '' }}>Diproses</option>
+                                <option value="selesai" {{ $complaint->status === 'selesai' ? 'selected' : '' }}>Selesai</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label for="detail_edit_description" class="form-label-sipfk">Deskripsi Masalah / Kerusakan <span class="required-star">*</span></label>
+                            <textarea id="detail_edit_description" name="description" rows="4" class="form-control form-control-sipfk" required>{{ $complaint->description }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top py-2">
+                    <button type="button" class="btn btn-light border px-3" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-sipfk-primary px-3">
+                        <i class="bi bi-save"></i>
+                        <span>Simpan Perubahan</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endif
 @endsection
