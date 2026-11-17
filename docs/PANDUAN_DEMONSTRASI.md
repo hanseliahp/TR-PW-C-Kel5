@@ -58,20 +58,25 @@ Total estimasi waktu demonstrasi: **15 – 20 Menit**.
 
 ---
 
-### ANGGOTA 3 — ALUR STATUS DAN CATATAN TINDAK LANJUT
-* **Tugas Pokok:** Manajemen status pengaduan (`baru` $\rightarrow$ `diproses` $\rightarrow$ `selesai`), form penambahan catatan tindak lanjut, dan visualisasi riwayat penanganan.
+### ANGGOTA 3 — ALUR STATUS, CATATAN TINDAK LANJUT & DASHBOARD
+* **Tugas Pokok:** Manajemen status pengaduan (`baru` $\rightarrow$ `diproses` $\rightarrow$ `selesai`), form penambahan catatan tindak lanjut, visualisasi riwayat penanganan, dan logika perhitungan angka 4 metrik dashboard.
 * **Langkah Demonstrasi:**
   1. Masuk ke menu *Daftar Pengaduan* `http://localhost:8000/admin/pengaduan`.
   2. Buka salah satu pengaduan yang berstatus `baru` (misal aduan yang baru dikirim Anggota 2).
-  3. Ubah status pengaduan menjadi `diproses` dan klik simpan. Tunjukkan perubahan badge status secara visual.
+  3. Ubah status pengaduan menjadi `diproses` dan klik simpan. Tunjukkan perubahan badge status secara visual (kuning $\rightarrow$ biru).
   4. Tambahkan catatan tindak lanjut pada form: *"Petugas teknisi kelistrikan sedang meluncur ke Gedung C membawa modul stop kontak pengganti."*
-  5. Simpan catatan dan tunjukkan riwayat catatan yang langsung muncul di linimasa detail beserta nama admin dan tanggal input.
-  6. Setelah itu, ubah status menjadi `selesai` dan tambahkan catatan penyelesaian: *"Stop kontak selesai diganti dan jalur kelistrikan telah normal kembali."*
+  5. Simpan catatan dan tunjukkan riwayat catatan yang langsung muncul di linimasa detail beserta nama admin (`Auth::user()->name`) dan stempel waktu input.
+  6. Setelah itu, ubah status menjadi `selesai` dan tambahkan catatan penyelesaian: *"Stop kontak selesai diganti dan jalur kelistrikan telah normal kembali."* Tunjukkan bahwa satu pengaduan dapat menampung multi-catatan (*history trail* sesuai BR-06).
+  7. Buka halaman *Dashboard Admin* `http://localhost:8000/admin/dashboard` dan jelaskan bagaimana nilai pada 4 kartu statistik dihitung secara *real-time* via `DashboardController` (`Complaint::count()`, kueri per-status `baru`, `diproses`, dan `selesai`).
 * **Narasi ke Dosen:**
-  > *"Saya menangani alur siklus hidup penanganan pengaduan dan catatan tindak lanjut. Admin kampus dapat memperbarui status secara bertahap dari baru, diproses, hingga selesai. Setiap tindakan perbaikan dicatat ke tabel follow-up lengkap dengan identitas admin yang sedang login dan waktu pencatatan, sehingga ada histori pertanggungjawaban yang jelas atas setiap komplain."*
+  > *"Saya menangani alur siklus penanganan pengaduan, catatan tindak lanjut, dan backend ringkasan dashboard. Melalui `ComplaintController@updateStatus`, admin kampus dapat memperbarui status secara bertahap dari baru, diproses, hingga selesai dengan validasi ketat yang menolak status di luar ketentuan (AC-05). Melalui `FollowUpController`, setiap tindakan perbaikan dicatat ke tabel `follow_ups` lengkap dengan identitas admin yang sedang login (`Auth::id()`) dan waktu pencatatan, sehingga ada histori pertanggungjawaban yang jelas dan transparan. Selain itu, pada `DashboardController`, saya mengimplementasikan logika agregasi database untuk menyajikan data statistik riil ke 4 kartu metrik dashboard."*
 * **Prediksi Pertanyaan Dosen & Jawaban:**
   * **Q:** *Apakah satu pengaduan bisa memiliki lebih dari satu catatan tindak lanjut?*  
-    **A:** *Ya, sesuai aturan BR-06, satu pengaduan memiliki relasi one-to-many ke catatan tindak lanjut sehingga perkembangan penanganan sarana prasarana dapat dipantau dari hari ke hari.*
+    **A:** *Ya, sesuai aturan BR-06, model `Complaint` memiliki relasi `hasMany` ke `FollowUp`. Hal ini memungkinkan admin mencatat setiap tahapan perbaikan secara berkala dari waktu ke waktu.*
+  * **Q:** *Bagaimana cara Anda memastikan hanya admin yang sedang login yang tercatat sebagai penulis catatan?*  
+    **A:** *Pada `FollowUpController@store`, nilai kolom `admin_id` diambil langsung dari sesi terautentikasi menggunakan `Auth::id()`, bukan dari input form tersembunyi (hidden input), sehingga tidak dapat dimanipulasi oleh pengguna.*
+  * **Q:** *Bagaimana angka pada 4 kartu ringkasan dashboard dihitung?*  
+    **A:** *Di `DashboardController@index`, metrik dihitung langsung menggunakan agregasi Eloquent: `Complaint::count()` untuk total, serta `Complaint::where('status', ...)->count()` untuk masing-masing status (`baru`, `diproses`, `selesai`). Hasilnya dikirim ke Blade view dalam bentuk array asosiatif `$stats`.*
 
 ---
 

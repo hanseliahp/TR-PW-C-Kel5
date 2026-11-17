@@ -65,7 +65,7 @@ class ReportController extends Controller
             ? date('d/m/Y', strtotime($request->end_date))
             : ($complaints->isNotEmpty() ? date('d/m/Y', strtotime($complaints->max('reported_at'))) : date('d/m/Y'));
 
-        $filename = 'Laporan_Pengaduan_SIPFK_' . date('Ymd_His') . '.pdf';
+        $filename = 'Laporan_Pengaduan_SIPFK_'.date('Ymd_His').'.pdf';
 
         // Jika library DomPDF tersedia dalam environment, dapat digunakan; jika tidak, gunakan SimplePdfReport murni
         if (class_exists(Pdf::class)) {
@@ -76,6 +76,7 @@ class ReportController extends Controller
                 if ($request->has('stream')) {
                     return $pdf->stream($filename);
                 }
+
                 return $pdf->download($filename);
             } catch (\Throwable $e) {
                 // Fallback otomatis ke SimplePdfReport murni jika terjadi kendala driver
@@ -89,10 +90,10 @@ class ReportController extends Controller
         );
 
         $report->setMeta([
-            'Periode'    => $startDateFormatted . ' s/d ' . $endDateFormatted,
-            'Status'     => $request->filled('status') ? ucfirst($request->status) : 'Semua Status',
-            'Total Data' => $complaints->count() . ' Pengaduan',
-            'Tanggal Cetak' => date('d/m/Y H:i') . ' WIB',
+            'Periode' => $startDateFormatted.' s/d '.$endDateFormatted,
+            'Status' => $request->filled('status') ? ucfirst($request->status) : 'Semua Status',
+            'Total Data' => $complaints->count().' Pengaduan',
+            'Tanggal Cetak' => date('d/m/Y H:i').' WIB',
         ]);
 
         $report->setColumns([
@@ -107,17 +108,17 @@ class ReportController extends Controller
 
         foreach ($complaints as $idx => $c) {
             $followUpNotes = $c->followUps->map(function ($fu) {
-                return ($fu->admin->name ?? 'Admin') . ': ' . $fu->note;
+                return ($fu->admin->name ?? 'Admin').': '.$fu->note;
             })->implode(' | ');
 
             $report->addRow([
-                'no'              => $idx + 1,
-                'reported_at'     => date('d/m/Y', strtotime($c->reported_at)),
-                'reporter_name'   => $c->reporter_name,
-                'category'        => $c->category->name ?? 'Tanpa Kategori',
-                'location'        => $c->location,
-                'description'     => $c->description,
-                'status'          => $c->status,
+                'no' => $idx + 1,
+                'reported_at' => date('d/m/Y', strtotime($c->reported_at)),
+                'reporter_name' => $c->reporter_name,
+                'category' => $c->category->name ?? 'Tanpa Kategori',
+                'location' => $c->location,
+                'description' => $c->description,
+                'status' => $c->status,
                 'follow_ups_text' => $followUpNotes,
             ]);
         }
@@ -125,18 +126,18 @@ class ReportController extends Controller
         $adminName = Auth::user()->name ?? 'Admin SIPFK';
         $report->setFooter(
             "SIPFK TRAS Kelompok G5  |  Dicetak oleh: {$adminName}",
-            "Dokumen Resmi Sistem Informasi Pengaduan Fasilitas Kampus"
+            'Dokumen Resmi Sistem Informasi Pengaduan Fasilitas Kampus'
         );
 
         $pdfBinary = $report->render();
         $disposition = $request->has('stream') ? 'inline' : 'attachment';
 
         return response($pdfBinary, 200, [
-            'Content-Type'        => 'application/pdf',
+            'Content-Type' => 'application/pdf',
             'Content-Disposition' => "{$disposition}; filename=\"{$filename}\"",
-            'Content-Length'      => strlen($pdfBinary),
-            'Cache-Control'       => 'private, max-age=0, must-revalidate',
-            'Pragma'              => 'public',
+            'Content-Length' => strlen($pdfBinary),
+            'Cache-Control' => 'private, max-age=0, must-revalidate',
+            'Pragma' => 'public',
         ]);
     }
 }

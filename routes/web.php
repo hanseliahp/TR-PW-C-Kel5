@@ -3,11 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\ReportController;
-use App\Models\Complaint;
-use App\Models\FollowUp;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,24 +48,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         return redirect()->route('admin.dashboard');
     });
 
-    // Dashboard dengan 4 Kartu Statistik (FR-08, 5.1)
-    Route::get('/dashboard', function () {
-        $total = Complaint::count();
-        $baru = Complaint::where('status', Complaint::STATUS_BARU)->count();
-        $diproses = Complaint::where('status', Complaint::STATUS_DIPROSES)->count();
-        $selesai = Complaint::where('status', Complaint::STATUS_SELESAI)->count();
-
-        $stats = [
-            'total' => $total,
-            'baru' => $baru,
-            'diproses' => $diproses,
-            'selesai' => $selesai,
-        ];
-
-        $recentComplaints = Complaint::with('category')->latest('reported_at')->take(5)->get();
-
-        return view('admin.dashboard', compact('stats', 'recentComplaints'));
-    })->name('dashboard');
+    // Dashboard dengan 4 Kartu Statistik (FR-08, Section 5.1 & AC-07)
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Manajemen Kategori (FR-04, BR-08)
     Route::get('/kategori', [CategoryController::class, 'index'])->name('categories.index');
@@ -84,22 +66,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::delete('/pengaduan/{complaint}', [ComplaintController::class, 'destroy'])->name('complaints.destroy');
 
     // Simpan Catatan Tindak Lanjut (FR-07, BR-05, BR-06)
-    Route::post('/pengaduan/{complaint}/tindak-lanjut', function (Request $request, $id) {
-        $validated = $request->validate([
-            'note' => ['required', 'string'],
-        ], [
-            'note.required' => 'Catatan tindak lanjut wajib diisi.',
-        ]);
-
-        FollowUp::create([
-            'complaint_id' => $id,
-            'admin_id' => Auth::id() ?? 1,
-            'note' => $validated['note'],
-        ]);
-
-        return redirect()->route('admin.complaints.show', $id)
-            ->with('success', 'Catatan tindak lanjut berhasil ditambahkan.');
-    })->name('complaints.follow-up.store');
+    Route::post('/pengaduan/{complaint}/tindak-lanjut', [FollowUpController::class, 'store'])->name('complaints.follow-up.store');
 
     // Laporan Rekapitulasi & Export PDF (FR-09, Section 5.2)
     Route::get('/laporan', [ReportController::class, 'index'])->name('reports.index');

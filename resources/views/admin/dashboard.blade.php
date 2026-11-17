@@ -122,50 +122,10 @@
                         </tr>
                     @endforeach
                 @else
-                    {{-- Preview Dummy Data jika database belum diisi --}}
                     <tr>
-                        <td class="text-muted small">1</td>
-                        <td class="text-nowrap small"><i class="bi bi-calendar3 me-1 text-muted"></i> 16 Nov 2026</td>
-                        <td><span class="fw-semibold text-dark">Ahmad Faiz</span></td>
-                        <td><span class="badge bg-light text-dark border">Teknologi Informasi</span></td>
-                        <td class="text-secondary small">Gedung B, Lab Komputer 3</td>
-                        <td>
-                            @include('components.status-badge', ['status' => 'baru'])
-                        </td>
-                        <td class="text-end">
-                            <a href="{{ route('admin.complaints.show', 1) }}" class="btn btn-outline-primary btn-sm btn-icon-sm" title="Buka Detail">
-                                <i class="bi bi-eye"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-muted small">2</td>
-                        <td class="text-nowrap small"><i class="bi bi-calendar3 me-1 text-muted"></i> 15 Nov 2026</td>
-                        <td><span class="fw-semibold text-dark">Rina Kusumawati</span></td>
-                        <td><span class="badge bg-light text-dark border">Air & Sanitasi</span></td>
-                        <td class="text-secondary small">Toilet Lantai 1 Gedung Utama</td>
-                        <td>
-                            @include('components.status-badge', ['status' => 'diproses'])
-                        </td>
-                        <td class="text-end">
-                            <a href="{{ route('admin.complaints.show', 2) }}" class="btn btn-outline-primary btn-sm btn-icon-sm" title="Buka Detail">
-                                <i class="bi bi-eye"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-muted small">3</td>
-                        <td class="text-nowrap small"><i class="bi bi-calendar3 me-1 text-muted"></i> 14 Nov 2026</td>
-                        <td><span class="fw-semibold text-dark">Dimas Prasetyo</span></td>
-                        <td><span class="badge bg-light text-dark border">Listrik & Kelistrikan</span></td>
-                        <td class="text-secondary small">Ruang Kuliah 301</td>
-                        <td>
-                            @include('components.status-badge', ['status' => 'selesai'])
-                        </td>
-                        <td class="text-end">
-                            <a href="{{ route('admin.complaints.show', 3) }}" class="btn btn-outline-primary btn-sm btn-icon-sm" title="Buka Detail">
-                                <i class="bi bi-eye"></i>
-                            </a>
+                        <td colspan="7" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-2 d-block mb-1 text-secondary opacity-50"></i>
+                            <span class="small fw-semibold text-secondary">Belum ada data pengaduan masuk</span>
                         </td>
                     </tr>
                 @endif

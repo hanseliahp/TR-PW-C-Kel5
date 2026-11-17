@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Complaint extends Model
 {
     public const STATUS_BARU = 'baru';
+
     public const STATUS_DIPROSES = 'diproses';
+
     public const STATUS_SELESAI = 'selesai';
 
     protected $fillable = [

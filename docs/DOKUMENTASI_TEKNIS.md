@@ -23,7 +23,7 @@ Sesuai dengan dokumen PRD Bagian 13, pengerjaan proyek dibagi secara jelas ke da
 |---|---|---|---|
 | **Anggota 1** | **Analisis Database & Fondasi Backend**<br>ERD, Migrasi tabel, Model Eloquent, Relasi foreign key, Konfigurasi database, dan Seeder. | `database/migrations/*`<br>`database/seeders/*`<br>`app/Models/*`<br>`.env` | 4 skema tabel terelasi, model Eloquent aktif, seeder akun admin, dan dataset awal pengaduan & kategori. |
 | **Anggota 2** | **CRUD Kategori & Pengaduan**<br>Pengelolaan data kategori dan aduan, validasi input wajib, logika simpan/ubah/hapus, dan aturan relasi BR-08. | `app/Http/Controllers/CategoryController` (or Route Handlers)<br>`resources/views/admin/categories/*`<br>`resources/views/admin/complaints/*` | Manajemen kategori, daftar pengaduan dengan filter pencarian & kategori, penolakan hapus kategori berkait. |
-| **Anggota 3** | **Alur Status & Catatan Tindak Lanjut**<br>Siklus hidup status aduan (`baru` $\rightarrow$ `diproses` $\rightarrow$ `selesai`), pencatatan follow-up admin, dan riwayat penanganan. | `app/Models/FollowUp`<br>`resources/views/admin/complaints/show.blade.php`<br>Route update status & follow-up | Form pembaruan status dinamis, pencatatan catatan admin pada aduan, dan tampilan linimasa/riwayat tindak lanjut. |
+| **Anggota 3** | **Alur Status, Tindak Lanjut & Dashboard**<br>Siklus hidup status aduan (`baru` $\rightarrow$ `diproses` $\rightarrow$ `selesai`), pencatatan follow-up admin terikat `Auth::id()`, riwayat penanganan kronologis, dan logika 4 metrik dashboard. | `app/Http/Controllers/DashboardController.php`<br>`app/Http/Controllers/FollowUpController.php`<br>`resources/views/admin/complaints/show.blade.php`<br>`tests/Feature/DashboardTest.php`<br>`tests/Feature/FollowUpTest.php` | Controller dashboard 4 metrik riil (FR-08, AC-07), controller multi follow-up (FR-07, BR-05, BR-06), validasi status ketat (FR-06, BR-03, AC-05), linimasa riwayat penanganan, 15 automated test cases. |
 | **Anggota 4** | **Antarmuka Pengguna Blade & Bootstrap**<br>Desain tata letak terpadu, komponen navigasi, kartu statistik dashboard, responsivitas, dan estetika UI. | `resources/views/layouts/*`<br>`resources/views/components/*`<br>`resources/views/public/*`<br>`resources/views/admin/dashboard.blade.php`<br>`public/css/sipfk-custom.css` | Layout utama admin & publik, navbar & sidebar offcanvas responsif, 4 stat-card dashboard (FR-08), badge status. |
 | **Anggota 5** | **Autentikasi, Middleware, Laporan PDF, Testing & Demo**<br>Sistem login/logout, proteksi route admin, generator PDF laporan, automated testing, dan panduan dokumentasi. | `app/Http/Controllers/AuthController.php`<br>`app/Http/Controllers/ReportController.php`<br>`app/Services/Pdf/SimplePdfReport.php`<br>`resources/views/admin/reports/*`<br>`tests/Feature/SipfkIntegrationTest.php`<br>`docs/*`, `README.md` | Login/logout aman, proteksi `auth` middleware, dokumen PDF 1.4 resmi, 16 automated tests passed, dokumentasi & panduan demo. |
 
@@ -99,9 +99,20 @@ Pengaduan mengikuti siklus status resmi tiga tahap:
 3. **`selesai`**: Diubah oleh admin saat sarana/prasarana telah diperbaiki dan diverifikasi.
 
 ### 5.2 Pencatatan Catatan Tindak Lanjut (FR-07, BR-05, BR-06)
+* Diimplementasikan melalui `FollowUpController::store()`.
 * Admin yang sedang login dapat menginput catatan berkala pada halaman detail pengaduan (`/admin/pengaduan/{id}`).
-* Setiap catatan otomatis menyimpan ID admin yang bertugas (`Auth::id()`) dan waktu pencatatan.
-* Satu pengaduan dapat menampung banyak catatan tindak lanjut (*history trail*), yang ditampilkan secara urut pada bagian detail dan dicantumkan ke dalam laporan resmi.
+* Setiap catatan otomatis menyimpan ID admin yang bertugas (`Auth::id()`) dan waktu pencatatan (BR-05).
+* Satu pengaduan dapat menampung banyak catatan tindak lanjut (*history trail* / multi follow-up sesuai BR-06), yang ditampilkan secara urut pada bagian detail dan dicantumkan ke dalam laporan resmi.
+* Dilengkapi penanganan *empty state* yang rapi saat pengaduan belum memiliki catatan penanganan.
+
+### 5.3 Logika Perhitungan Ringkasan Dashboard (FR-08, AC-07)
+* Diimplementasikan secara terstruktur melalui `DashboardController::index()`.
+* Menghitung empat metrik langsung dari basis data tanpa hardcoding nilai:
+  1. **Total Seluruh Pengaduan:** `Complaint::count()`
+  2. **Pengaduan Status Baru:** `Complaint::where('status', Complaint::STATUS_BARU)->count()`
+  3. **Pengaduan Status Diproses:** `Complaint::where('status', Complaint::STATUS_DIPROSES)->count()`
+  4. **Pengaduan Status Selesai:** `Complaint::where('status', Complaint::STATUS_SELESAI)->count()`
+* Menyediakan 5 data pengaduan terkini (`recentComplaints`) dengan eager loading relasi kategori (`with('category')`) untuk mengoptimalkan performa kueri dan mencegah *N+1 query problem*.
 
 ---
 

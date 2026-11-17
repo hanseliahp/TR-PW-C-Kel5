@@ -15,6 +15,7 @@ class SipfkIntegrationTest extends TestCase
     use RefreshDatabase;
 
     protected User $admin;
+
     protected Category $category;
 
     protected function setUp(): void
@@ -22,13 +23,13 @@ class SipfkIntegrationTest extends TestCase
         parent::setUp();
 
         $this->admin = User::create([
-            'name'     => 'Admin SIPFK',
-            'email'    => 'admin@sipfk.test',
+            'name' => 'Admin SIPFK',
+            'email' => 'admin@sipfk.test',
             'password' => Hash::make('password'),
         ]);
 
         $this->category = Category::create([
-            'name'        => 'Teknologi Informasi',
+            'name' => 'Teknologi Informasi',
             'description' => 'Fasilitas komputer, proyektor, dan jaringan internet',
         ]);
     }
@@ -46,7 +47,7 @@ class SipfkIntegrationTest extends TestCase
     public function test_admin_can_login_with_correct_credentials(): void
     {
         $response = $this->post('/login', [
-            'email'    => 'admin@sipfk.test',
+            'email' => 'admin@sipfk.test',
             'password' => 'password',
         ]);
 
@@ -57,7 +58,7 @@ class SipfkIntegrationTest extends TestCase
     public function test_admin_cannot_login_with_wrong_password(): void
     {
         $response = $this->from('/login')->post('/login', [
-            'email'    => 'admin@sipfk.test',
+            'email' => 'admin@sipfk.test',
             'password' => 'wrongpassword123',
         ]);
 
@@ -69,7 +70,7 @@ class SipfkIntegrationTest extends TestCase
     public function test_admin_cannot_login_with_unregistered_email(): void
     {
         $response = $this->from('/login')->post('/login', [
-            'email'    => 'notfound@sipfk.test',
+            'email' => 'notfound@sipfk.test',
             'password' => 'password',
         ]);
 
@@ -142,17 +143,17 @@ class SipfkIntegrationTest extends TestCase
     {
         $complaint = Complaint::create([
             'reporter_name' => 'Budi Pratama',
-            'category_id'   => $this->category->id,
-            'location'      => 'Gedung B, Lab Komputer',
-            'reported_at'   => '2026-11-16',
-            'description'   => 'Kabel HDMI proyektor putus, tampilan tidak muncul.',
-            'status'        => 'baru',
+            'category_id' => $this->category->id,
+            'location' => 'Gedung B, Lab Komputer',
+            'reported_at' => '2026-11-16',
+            'description' => 'Kabel HDMI proyektor putus, tampilan tidak muncul.',
+            'status' => 'baru',
         ]);
 
         FollowUp::create([
             'complaint_id' => $complaint->id,
-            'admin_id'     => $this->admin->id,
-            'note'         => 'Sudah dijadwalkan teknisi untuk pergantian kabel.',
+            'admin_id' => $this->admin->id,
+            'note' => 'Sudah dijadwalkan teknisi untuk pergantian kabel.',
         ]);
 
         $response = $this->actingAs($this->admin)->get('/admin/laporan/pdf');
@@ -170,23 +171,23 @@ class SipfkIntegrationTest extends TestCase
         // 1. Pelapor mengirim pengaduan secara publik
         $storeResponse = $this->post('/pengaduan', [
             'reporter_name' => 'Siti Nurhaliza',
-            'category_id'   => $this->category->id,
-            'location'      => 'Gedung A, Lantai 2',
-            'reported_at'   => '2026-11-16',
-            'description'   => 'Lampu ruangan berkedip dan sering mati mendadak.',
+            'category_id' => $this->category->id,
+            'location' => 'Gedung A, Lantai 2',
+            'reported_at' => '2026-11-16',
+            'description' => 'Lampu ruangan berkedip dan sering mati mendadak.',
         ]);
         $storeResponse->assertRedirect('/');
 
         $this->assertDatabaseHas('complaints', [
             'reporter_name' => 'Siti Nurhaliza',
-            'status'        => 'baru',
+            'status' => 'baru',
         ]);
 
         $complaint = Complaint::where('reporter_name', 'Siti Nurhaliza')->first();
 
         // 2. Admin Login
         $loginResponse = $this->post('/login', [
-            'email'    => 'admin@sipfk.test',
+            'email' => 'admin@sipfk.test',
             'password' => 'password',
         ]);
         $loginResponse->assertRedirect('/admin/dashboard');
@@ -203,7 +204,7 @@ class SipfkIntegrationTest extends TestCase
         $statusResponse->assertRedirect("/admin/pengaduan/{$complaint->id}");
 
         $this->assertDatabaseHas('complaints', [
-            'id'     => $complaint->id,
+            'id' => $complaint->id,
             'status' => 'diproses',
         ]);
 
@@ -215,8 +216,8 @@ class SipfkIntegrationTest extends TestCase
 
         $this->assertDatabaseHas('follow_ups', [
             'complaint_id' => $complaint->id,
-            'admin_id'     => $this->admin->id,
-            'note'         => 'Teknisi kelistrikan sedang mengganti ballast dan bohlam lampu.',
+            'admin_id' => $this->admin->id,
+            'note' => 'Teknisi kelistrikan sedang mengganti ballast dan bohlam lampu.',
         ]);
 
         // 6. Admin mengunduh laporan PDF yang berisi data aktual dan tindak lanjut

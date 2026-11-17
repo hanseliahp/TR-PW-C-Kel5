@@ -16,7 +16,7 @@ Sesuai dokumen Product Requirements Document (PRD), proyek ini diselesaikan mela
 |---|---|---|
 | **Anggota 1** | **Analisis Database & Fondasi Backend** | ERD, migrasi tabel (`users`, `categories`, `complaints`, `follow_ups`), model Eloquent, relasi foreign key, seeder database, dan konfigurasi lingkungan. |
 | **Anggota 2** | **CRUD Kategori & Pengaduan** | Formulir pengaduan publik pelapor, validasi data sisi server (FR-10), manajemen kategori dengan proteksi relasi (BR-08), serta daftar aduan. |
-| **Anggota 3** | **Alur Status & Catatan Tindak Lanjut** | Siklus hidup status aduan (`baru` $\rightarrow$ `diproses` $\rightarrow$ `selesai`), form pencatatan tindak lanjut (*follow-up*) admin, serta linimasa histori penanganan. |
+| **Anggota 3** | **Alur Status, Tindak Lanjut & Dashboard** | Siklus hidup status aduan (`baru` $\rightarrow$ `diproses` $\rightarrow$ `selesai`), form pencatatan tindak lanjut (*follow-up*) admin terikat `Auth::id()`, linimasa histori penanganan, serta logika 4 metrik dashboard (FR-08, AC-07). |
 | **Anggota 4** | **Antarmuka Pengguna Blade & Bootstrap** | Desain layout terpadu (`layouts/admin`, `layouts/public`, `layouts/auth`), navbar dan sidebar offcanvas responsif, 4 kartu ringkasan dashboard (FR-08), badge status semantik. |
 | **Anggota 5** | **Autentikasi, Middleware, Laporan PDF, Testing & Demo** | Sistem login/logout admin dengan session regeneration, proteksi middleware `auth` pada rute admin, generator laporan PDF resmi (FR-09), automated integration testing, serta dokumentasi TRAS. |
 

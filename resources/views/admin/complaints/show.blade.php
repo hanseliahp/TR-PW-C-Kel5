@@ -97,7 +97,7 @@
                 @method('PUT')
                 <div class="row g-2 align-items-center">
                     <div class="col-12 col-sm-8">
-                        <select name="status" class="form-select form-select-sipfk" required>
+                        <select name="status" class="form-select form-select-sipfk @error('status') is-invalid @enderror" required>
                             <option value="baru" {{ (isset($complaint) && $complaint->status === 'baru') ? 'selected' : '' }}>
                                 [ Baru ] &mdash; Laporan baru diterima sistem
                             </option>
@@ -108,6 +108,9 @@
                                 [ Selesai ] &mdash; Kerusakan berhasil diperbaiki tuntas
                             </option>
                         </select>
+                        @error('status')
+                            <div class="invalid-feedback d-block small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-12 col-sm-4">
                         <button type="submit" class="btn btn-sipfk-primary w-100 justify-content-center">
@@ -161,57 +164,41 @@
             <h3 class="h6 fw-bold text-dark mb-3 d-flex align-items-center justify-content-between">
                 <span>Riwayat Penanganan</span>
                 <span class="badge bg-light text-muted border small">
-                    {{ isset($complaint->followUps) ? count($complaint->followUps) : 2 }} Catatan
+                    {{ isset($complaint->followUps) ? $complaint->followUps->count() : 0 }} Catatan
                 </span>
             </h3>
 
             <div class="timeline-container pt-1">
-                <ul class="timeline-list">
-                    @if(isset($complaint->followUps) && count($complaint->followUps) > 0)
+                @if(isset($complaint->followUps) && $complaint->followUps->count() > 0)
+                    <ul class="timeline-list">
                         @foreach($complaint->followUps as $followUp)
                             <li class="timeline-item">
                                 <div class="timeline-node" aria-hidden="true"></div>
                                 <div class="timeline-content">
-                                    <div class="d-flex justify-content-between align-items-start mb-1">
-                                        <strong class="text-dark small">{{ $followUp->admin->name ?? 'Admin SIPFK' }}</strong>
-                                        <span class="text-muted" style="font-size: 0.75rem;">
-                                            {{ $followUp->created_at->diffForHumans() }}
+                                    <div class="d-flex justify-content-between align-items-start mb-1 flex-wrap gap-1">
+                                        <strong class="text-dark small">
+                                            <i class="bi bi-person-badge me-1 text-primary"></i>
+                                            {{ $followUp->admin->name ?? 'Admin SIPFK' }}
+                                        </strong>
+                                        <span class="text-muted" style="font-size: 0.75rem;" title="{{ $followUp->created_at->format('Y-m-d H:i:s') }}">
+                                            <i class="bi bi-clock me-1"></i>
+                                            {{ $followUp->created_at->translatedFormat('d M Y, H:i') }} ({{ $followUp->created_at->diffForHumans() }})
                                         </span>
                                     </div>
-                                    <p class="mb-0 text-secondary small lh-base">
-                                        {{ $followUp->note }}
-                                    </p>
+                                    <div class="mb-0 text-secondary small lh-base">
+                                        {!! nl2br(e($followUp->note)) !!}
+                                    </div>
                                 </div>
                             </li>
                         @endforeach
-                    @else
-                        {{-- Dummy Histori untuk Preview Antarmuka --}}
-                        <li class="timeline-item">
-                            <div class="timeline-node" aria-hidden="true"></div>
-                            <div class="timeline-content">
-                                <div class="d-flex justify-content-between align-items-start mb-1">
-                                    <strong class="text-dark small">Admin SIPFK</strong>
-                                    <span class="text-muted" style="font-size: 0.75rem;">1 jam yang lalu</span>
-                                </div>
-                                <p class="mb-0 text-secondary small lh-base">
-                                    Teknisi jaringan telah mengambil kabel pengganti dari gudang logistik dan menuju lokasi ruangan.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="timeline-item">
-                            <div class="timeline-node" aria-hidden="true"></div>
-                            <div class="timeline-content">
-                                <div class="d-flex justify-content-between align-items-start mb-1">
-                                    <strong class="text-dark small">Admin SIPFK</strong>
-                                    <span class="text-muted" style="font-size: 0.75rem;">3 jam yang lalu</span>
-                                </div>
-                                <p class="mb-0 text-secondary small lh-base">
-                                    Laporan diterima dan diteruskan ke Divisi Sarana & Prasarana Kampus. Status diubah menjadi diproses.
-                                </p>
-                            </div>
-                        </li>
-                    @endif
-                </ul>
+                    </ul>
+                @else
+                    <div class="text-center py-4 text-muted">
+                        <i class="bi bi-journal-x fs-2 d-block mb-2 text-secondary opacity-50"></i>
+                        <p class="small mb-1 fw-semibold text-secondary">Belum ada catatan tindak lanjut</p>
+                        <span class="small text-muted" style="font-size: 0.8rem;">Gunakan formulir di atas untuk mencatat setiap tindakan teknisi atau perkembangan sarana kampus.</span>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

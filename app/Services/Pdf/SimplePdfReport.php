@@ -10,23 +10,36 @@ namespace App\Services\Pdf;
 class SimplePdfReport
 {
     protected string $title;
+
     protected string $subtitle;
+
     protected array $meta = [];
+
     protected array $columns = [];
+
     protected array $rows = [];
+
     protected string $footerLeft = '';
+
     protected string $footerRight = '';
 
     // Page format: A4 Landscape in points (841.89 x 595.28)
     protected float $pageWidth = 841.89;
+
     protected float $pageHeight = 595.28;
+
     protected float $marginLeft = 36.0;
+
     protected float $marginRight = 36.0;
+
     protected float $marginTop = 36.0;
+
     protected float $marginBottom = 36.0;
 
     protected array $pages = [];
+
     protected array $objects = [];
+
     protected int $nextObjId = 1;
 
     public function __construct(string $title = 'SIPFK - SISTEM INFORMASI PENGADUAN FASILITAS KAMPUS', string $subtitle = '')
@@ -43,24 +56,28 @@ class SimplePdfReport
     public function setMeta(array $meta): self
     {
         $this->meta = $meta;
+
         return $this;
     }
 
     public function setColumns(array $columns): self
     {
         $this->columns = $columns;
+
         return $this;
     }
 
     public function addRow(array $row): self
     {
         $this->rows[] = $row;
+
         return $this;
     }
 
     public function setRows(array $rows): self
     {
         $this->rows = $rows;
+
         return $this;
     }
 
@@ -68,6 +85,7 @@ class SimplePdfReport
     {
         $this->footerLeft = $left;
         $this->footerRight = $right;
+
         return $this;
     }
 
@@ -76,13 +94,14 @@ class SimplePdfReport
         // Convert UTF-8 / special chars to clean ISO-8859-1 for standard PDF Type 1 fonts
         $text = iconv('UTF-8', 'windows-1252//TRANSLIT//IGNORE', $text) ?: $text;
         $text = str_replace(['\\', '(', ')'], ['\\\\', '\\(', '\\)'], $text);
+
         return $text;
     }
 
     public function render(): string
     {
         $printableWidth = $this->pageWidth - $this->marginLeft - $this->marginRight;
-        
+
         // Calculate column widths in points
         $colWidths = [];
         $totalRatio = 0.0;
@@ -99,7 +118,7 @@ class SimplePdfReport
         $currentY = $this->pageHeight - $this->marginTop;
 
         $startNewPage = function () use (&$currentPage, &$currentY, &$pageStreams) {
-            if (!empty($currentPage)) {
+            if (! empty($currentPage)) {
                 $pageStreams[] = $currentPage;
             }
             $currentPage = '';
@@ -115,7 +134,7 @@ class SimplePdfReport
             // Header Top Bar
             $currentPage .= "0.12 0.23 0.38 rg\n"; // Dark Navy Primary
             $currentPage .= sprintf("%.2f %.2f %.2f %.2f re f\n", $this->marginLeft, $currentY - 32, $printableWidth, 32);
-            
+
             // Title Text
             $currentPage .= "1 1 1 rg\n"; // White text
             $currentPage .= "BT\n/F2 13 Tf\n";
@@ -137,8 +156,8 @@ class SimplePdfReport
             $currentPage .= sprintf("(%s) Tj\nET\n", $this->escape($this->subtitle));
 
             // Meta Info (Right aligned)
-            if (!empty($this->meta)) {
-                $metaStr = implode('  |  ', array_map(fn($k, $v) => "$k: $v", array_keys($this->meta), array_values($this->meta)));
+            if (! empty($this->meta)) {
+                $metaStr = implode('  |  ', array_map(fn ($k, $v) => "$k: $v", array_keys($this->meta), array_values($this->meta)));
                 $currentPage .= "0.4 0.4 0.4 rg\n";
                 $currentPage .= "BT\n/F1 8 Tf\n";
                 $currentPage .= sprintf("%.2f %.2f Td\n", $this->marginLeft + $printableWidth - (strlen($metaStr) * 4.4) - 12, $currentY - 16);
@@ -163,7 +182,7 @@ class SimplePdfReport
                 $align = $col['align'] ?? 'left';
                 $text = $this->escape($col['label'] ?? '');
                 $currentPage .= "BT\n/F2 8.5 Tf\n";
-                
+
                 $textX = $x + 5;
                 if ($align === 'center') {
                     $textX = $x + ($w / 2) - (strlen($text) * 2.2);
@@ -183,7 +202,7 @@ class SimplePdfReport
         $rowNum = 0;
         foreach ($this->rows as $row) {
             $rowHeight = 24.0;
-            $hasFollowUp = !empty($row['follow_ups_text']);
+            $hasFollowUp = ! empty($row['follow_ups_text']);
             if ($hasFollowUp) {
                 $rowHeight = 36.0;
             }
@@ -218,7 +237,7 @@ class SimplePdfReport
 
                 if ($key === 'status') {
                     // Badge rendering for status
-                    $st = strtolower((string)$val);
+                    $st = strtolower((string) $val);
                     $badgeW = 50.0;
                     $badgeH = 13.0;
                     $badgeX = $x + ($w / 2) - ($badgeW / 2);
@@ -245,10 +264,10 @@ class SimplePdfReport
                     $currentPage .= "BT\n/F1 8 Tf\n";
 
                     // Truncate text if too long
-                    $maxChars = max(5, (int)($w / 4.4));
-                    $text = (string)$val;
+                    $maxChars = max(5, (int) ($w / 4.4));
+                    $text = (string) $val;
                     if (mb_strlen($text) > $maxChars) {
-                        $text = mb_substr($text, 0, $maxChars - 2) . '..';
+                        $text = mb_substr($text, 0, $maxChars - 2).'..';
                     }
                     $textEscaped = $this->escape($text);
 
@@ -262,10 +281,10 @@ class SimplePdfReport
 
                     // If this is description/note column and has follow-up
                     if ($key === 'description' && $hasFollowUp) {
-                        $fText = 'Tindak Lanjut: ' . (string)$row['follow_ups_text'];
-                        $maxF = max(5, (int)($w / 3.8));
+                        $fText = 'Tindak Lanjut: '.(string) $row['follow_ups_text'];
+                        $maxF = max(5, (int) ($w / 3.8));
                         if (mb_strlen($fText) > $maxF) {
-                            $fText = mb_substr($fText, 0, $maxF - 2) . '..';
+                            $fText = mb_substr($fText, 0, $maxF - 2).'..';
                         }
                         $currentPage .= "0.0 0.35 0.65 rg\n";
                         $currentPage .= "BT\n/F2 7 Tf\n";
@@ -281,7 +300,7 @@ class SimplePdfReport
             $currentY -= $rowHeight;
         }
 
-        if (!empty($currentPage)) {
+        if (! empty($currentPage)) {
             $pageStreams[] = $currentPage;
         }
 
@@ -301,14 +320,14 @@ class SimplePdfReport
             $footerStream .= sprintf("%.2f %.2f Td\n", $this->marginLeft, $this->marginBottom + 4);
             $footerStream .= sprintf("(%s) Tj\nET\n", $this->escape($this->footerLeft));
 
-            $pageStr = sprintf("Halaman %d dari %d", $pageNum, $totalPages);
-            $footerRightFull = trim($this->footerRight . '  |  ' . $pageStr, ' | ');
+            $pageStr = sprintf('Halaman %d dari %d', $pageNum, $totalPages);
+            $footerRightFull = trim($this->footerRight.'  |  '.$pageStr, ' | ');
             $footerStream .= "BT\n/F1 7.5 Tf\n";
             $footerStream .= sprintf("%.2f %.2f Td\n", $this->marginLeft + $printableWidth - (strlen($footerRightFull) * 3.8), $this->marginBottom + 4);
             $footerStream .= sprintf("(%s) Tj\nET\n", $this->escape($footerRightFull));
             $footerStream .= "Q\n";
 
-            $outputPages[] = $stream . $footerStream;
+            $outputPages[] = $stream.$footerStream;
         }
 
         return $this->compilePdf($outputPages);
@@ -339,15 +358,15 @@ class SimplePdfReport
         }
 
         // Write Catalog
-        $objects[$catalogId] = sprintf("<< /Type /Catalog /Pages %d 0 R >>", $pagesId);
+        $objects[$catalogId] = sprintf('<< /Type /Catalog /Pages %d 0 R >>', $pagesId);
 
         // Write Pages collection
-        $kidsStr = implode(' ', array_map(fn($id) => "$id 0 R", $pageObjIds));
-        $objects[$pagesId] = sprintf("<< /Type /Pages /Kids [%s] /Count %d >>", $kidsStr, count($pageObjIds));
+        $kidsStr = implode(' ', array_map(fn ($id) => "$id 0 R", $pageObjIds));
+        $objects[$pagesId] = sprintf('<< /Type /Pages /Kids [%s] /Count %d >>', $kidsStr, count($pageObjIds));
 
         // Write Standard Fonts
-        $objects[$font1Id] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>";
-        $objects[$font2Id] = "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>";
+        $objects[$font1Id] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
+        $objects[$font2Id] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
 
         // Write Pages and Contents
         foreach ($pageContentPairs as $pair) {
@@ -357,11 +376,11 @@ class SimplePdfReport
 
             // Deflate compression if available
             $streamData = gzcompress($content);
-            $filter = "/Filter /FlateDecode ";
+            $filter = '/Filter /FlateDecode ';
             $length = strlen($streamData);
 
             $objects[$pageId] = sprintf(
-                "<< /Type /Page /Parent %d 0 R /MediaBox [0 0 %.2f %.2f] /Contents %d 0 R /Resources << /Font << /F1 %d 0 R /F2 %d 0 R >> >> >>",
+                '<< /Type /Page /Parent %d 0 R /MediaBox [0 0 %.2f %.2f] /Contents %d 0 R /Resources << /Font << /F1 %d 0 R /F2 %d 0 R >> >> >>',
                 $pagesId,
                 $this->pageWidth,
                 $this->pageHeight,
