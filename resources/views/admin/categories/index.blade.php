@@ -25,7 +25,6 @@
         </span>
     </div>
 
-    {{-- Tabel Responsif Kategori (NFR-02, AC-10) --}}
     <div class="table-responsive">
         <table class="table table-zendesk align-middle table-hover mb-0">
             <thead>
@@ -55,11 +54,11 @@
                             </td>
                             <td class="text-end">
                                 <div class="btn-group btn-group-sm">
-                                    <button 
-                                        type="button" 
-                                        class="btn btn-outline-secondary btn-icon-sm rounded-circle me-1" 
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-secondary btn-icon-sm rounded-circle me-1"
                                         title="Ubah Kategori"
-                                        data-bs-toggle="modal" 
+                                        data-bs-toggle="modal"
                                         data-bs-target="#editCategoryModal"
                                         data-id="{{ $category->id }}"
                                         data-name="{{ $category->name }}"
@@ -68,11 +67,11 @@
                                     >
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
-                                    <button 
-                                        type="button" 
-                                        class="btn btn-outline-danger btn-icon-sm rounded-circle" 
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-danger btn-icon-sm rounded-circle"
                                         title="Hapus Kategori"
-                                        data-bs-toggle="modal" 
+                                        data-bs-toggle="modal"
                                         data-bs-target="#deleteConfirmModal"
                                         data-action="{{ route('admin.categories.destroy', $category->id) }}"
                                         data-name="Kategori {{ $category->name }}"
@@ -85,7 +84,7 @@
                         </tr>
                     @endforeach
                 @else
-                    {{-- Preview Dummy Data jika database belum terisi --}}
+
                     @php
                         $dummyCats = [
                             ['id' => 1, 'name' => 'Listrik & Kelistrikan', 'desc' => 'Saklar, stop kontak, penerangan lampu kelas/koridor, trafo, sekring.', 'count' => 8],
@@ -127,7 +126,6 @@
     </div>
 </div>
 
-{{-- Modal Tambah Kategori Baru --}}
 <div class="modal fade" id="createCategoryModal" tabindex="-1" aria-labelledby="createCategoryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg" style="border-radius: var(--radius-xl);">
@@ -147,13 +145,13 @@
                         <label for="create_category_name" class="form-label-zd">
                             Nama Kategori <span class="required-star">*</span>
                         </label>
-                        <input 
-                            type="text" 
-                            id="create_category_name" 
-                            name="name" 
-                            class="form-control form-control-zd" 
-                            placeholder="Contoh: Tata Udara (AC & Kipas)" 
-                            required 
+                        <input
+                            type="text"
+                            id="create_category_name"
+                            name="name"
+                            class="form-control form-control-zd"
+                            placeholder="Contoh: Tata Udara (AC & Kipas)"
+                            required
                             maxlength="100"
                         >
                         <div class="form-help-zd">Nama kategori harus unik dan merepresentasikan jenis sarana kampus.</div>
@@ -162,11 +160,11 @@
                         <label for="create_category_desc" class="form-label-zd">
                             Deskripsi Cakupan (Opsional)
                         </label>
-                        <textarea 
-                            id="create_category_desc" 
-                            name="description" 
-                            rows="3" 
-                            class="form-control form-control-zd" 
+                        <textarea
+                            id="create_category_desc"
+                            name="description"
+                            rows="3"
+                            class="form-control form-control-zd"
                             placeholder="Tuliskan cakupan fasilitas atau perangkat yang masuk dalam kategori ini..."
                         ></textarea>
                     </div>
@@ -183,7 +181,6 @@
     </div>
 </div>
 
-{{-- Modal Ubah Kategori (Edit) --}}
 <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg" style="border-radius: var(--radius-xl);">
@@ -204,12 +201,12 @@
                         <label for="edit_category_name" class="form-label-zd">
                             Nama Kategori <span class="required-star">*</span>
                         </label>
-                        <input 
-                            type="text" 
-                            id="edit_category_name" 
-                            name="name" 
-                            class="form-control form-control-zd" 
-                            required 
+                        <input
+                            type="text"
+                            id="edit_category_name"
+                            name="name"
+                            class="form-control form-control-zd"
+                            required
                             maxlength="100"
                         >
                     </div>
@@ -217,10 +214,10 @@
                         <label for="edit_category_desc" class="form-label-zd">
                             Deskripsi Cakupan (Opsional)
                         </label>
-                        <textarea 
-                            id="edit_category_desc" 
-                            name="description" 
-                            rows="3" 
+                        <textarea
+                            id="edit_category_desc"
+                            name="description"
+                            rows="3"
                             class="form-control form-control-zd"
                         ></textarea>
                     </div>

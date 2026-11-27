@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
             ['email' => 'admin@sipfk.test'],
             [
                 'name' => 'Admin SIPFK',
-                'password' => Hash::make('password'), // ganti sebelum dipakai di luar demo
+                'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ]
         );

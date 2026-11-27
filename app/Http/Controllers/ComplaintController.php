@@ -13,10 +13,6 @@ use Illuminate\Validation\Rule;
 
 class ComplaintController extends Controller
 {
-    /**
-     * Menampilkan formulir publik untuk pengiriman pengaduan fasilitas kampus (FR-03).
-     * Dapat diakses secara terbuka tanpa perlu login.
-     */
     public function create(): View
     {
         try {
@@ -28,14 +24,6 @@ class ComplaintController extends Controller
         return view('public.complaint-form', compact('categories'));
     }
 
-    /**
-     * Menyimpan pengaduan fasilitas baru dari formulir publik (FR-03, FR-10, NFR-04).
-     * Mengimplementasikan aturan bisnis:
-     * - BR-01: Setiap pengaduan harus terhubung dengan kategori yang valid.
-     * - BR-02: Nama pelapor, kategori, lokasi, tanggal, dan deskripsi wajib diisi.
-     * - BR-04: Pengaduan baru otomatis mendapatkan status 'baru'.
-     * - BR-07: Lokasi diisi secara manual berupa teks, bukan dari GPS.
-     */
     public function store(Request $request): RedirectResponse
     {
         $validated = $this->validateComplaintInput($request);
@@ -46,7 +34,7 @@ class ComplaintController extends Controller
             'location' => $validated['location'],
             'reported_at' => $validated['reported_at'],
             'description' => $validated['description'],
-            'status' => Complaint::STATUS_BARU, // BR-04: Otomatis 'baru'
+            'status' => Complaint::STATUS_BARU,
         ]);
 
         return redirect()->route('home')->with(
@@ -55,10 +43,6 @@ class ComplaintController extends Controller
         );
     }
 
-    /**
-     * Menampilkan daftar seluruh pengaduan di panel admin (FR-05).
-     * Mendukung pencarian kata kunci serta filter kategori dan status.
-     */
     public function index(Request $request): View
     {
         $query = Complaint::with('category')->latest('reported_at');
@@ -86,9 +70,6 @@ class ComplaintController extends Controller
         return view('admin.complaints.index', compact('complaints', 'categories'));
     }
 
-    /**
-     * Menyimpan data pengaduan baru melalui panel admin (FR-05, FR-10).
-     */
     public function adminStore(Request $request): RedirectResponse
     {
         $validated = $this->validateComplaintInput($request, isStatusRequired: false);
@@ -108,9 +89,6 @@ class ComplaintController extends Controller
         );
     }
 
-    /**
-     * Menampilkan detail lengkap suatu pengaduan beserta riwayat catatan tindak lanjut (FR-05, FR-06, FR-07).
-     */
     public function show(int $id): View
     {
         $complaint = Complaint::with(['category', 'followUps.admin'])->findOrFail($id);
@@ -119,9 +97,6 @@ class ComplaintController extends Controller
         return view('admin.complaints.show', compact('complaint', 'categories'));
     }
 
-    /**
-     * Memperbarui seluruh data pengaduan fasilitas oleh admin (FR-05, FR-10).
-     */
     public function update(Request $request, int $id): RedirectResponse
     {
         $complaint = Complaint::findOrFail($id);
@@ -142,9 +117,6 @@ class ComplaintController extends Controller
         );
     }
 
-    /**
-     * Memperbarui status penanganan pengaduan secara cepat (FR-06, BR-03).
-     */
     public function updateStatus(Request $request, int $id): RedirectResponse
     {
         $validated = $request->validate([
@@ -163,9 +135,6 @@ class ComplaintController extends Controller
         );
     }
 
-    /**
-     * Menghapus data pengaduan fasilitas kampus (FR-05).
-     */
     public function destroy(int $id): RedirectResponse
     {
         $complaint = Complaint::findOrFail($id);
@@ -177,11 +146,6 @@ class ComplaintController extends Controller
         );
     }
 
-    /**
-     * Helper validasi input pengaduan sisi server yang seragam (FR-10, NFR-04, BR-01, BR-02, BR-07).
-     *
-     * @return array<string, mixed>
-     */
     private function validateComplaintInput(Request $request, bool $isStatusRequired = false): array
     {
         $rules = [

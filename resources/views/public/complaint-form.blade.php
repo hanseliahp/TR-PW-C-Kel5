@@ -3,28 +3,22 @@
 @section('title', 'SIPFK - Solusi Nyata Penanganan Fasilitas Kampus')
 
 @section('content')
-{{-- =========================================================================
-     1. HERO SECTION (Terinspirasi Penuh dari Gambar Referensi 1)
-     Headline beraksen miring, tombol Pill, Showcase Card Foto dengan Bubble Resolusi Melayang
-     ========================================================================= --}}
+
 <section class="bg-aura-hero text-white pt-5 pb-5 mb-5">
     <div class="container py-3 py-lg-4 text-center">
-        <!-- Badge Micro Header -->
+
         <div class="d-inline-flex align-items-center px-3 py-1 rounded-pill mb-4" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
             <span class="small text-white fw-medium">Layanan Aspirasi & Sarana Prasarana Kampus</span>
         </div>
 
-        <!-- Main Display Headline with Italic Accent -->
         <h1 class="display-hero display-4 fw-bold mx-auto mb-3" style="max-width: 900px;">
             Bukan Sekadar <span class="italic-accent">Mencatat</span>. Hadirkan <span class="italic-accent">Solusi Nyata</span>.
         </h1>
 
-        <!-- Subtitle -->
         <p class="lead text-light opacity-75 mx-auto mb-4" style="max-width: 720px; font-size: 1.15rem; line-height: 1.6;">
             Platform pelaporan fasilitas kampus yang menghubungkan aspirasi mahasiswa dan dosen langsung dengan tim teknisi sarana dan prasarana secara terpusat, cepat, dan transparan.
         </p>
 
-        <!-- CTA Buttons & Verify Pill -->
         <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3 mb-3">
             <a href="#form-pengaduan" class="btn-pill-white">
                 <span>Ajukan Pengaduan Sekarang</span>
@@ -41,18 +35,16 @@
             <span>Pengaduan langsung tercatat &bull; Tanpa perlu login akun pelapor &bull; Bebas biaya</span>
         </div>
 
-        <!-- Hero Showcase Card dengan Foto Nyata & Floating Chat Bubble Resolusi (Image 1) -->
         <div class="hero-showcase-container mx-auto" style="max-width: 1040px;">
-            <!-- Foto Showcase Kampus Berkualitas Tinggi (Unsplash Architecture/Student) -->
-            <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80" 
-                alt="Civitas akademika berkolaborasi di fasilitas kampus" 
+
+            <img
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80"
+                alt="Civitas akademika berkolaborasi di fasilitas kampus"
                 class="hero-showcase-img"
             >
 
-            <!-- Overlay dengan Floating Dialogue Bubbles -->
             <div class="hero-showcase-overlay">
-                <!-- Bubble Atas (Pelapor Mahasiswa) -->
+
                 <div class="d-flex justify-content-start">
                     <div class="chat-bubble-floating text-start">
                         <div class="chat-bubble-author">
@@ -68,7 +60,6 @@
                     </div>
                 </div>
 
-                <!-- Bubble Bawah (Tim Fasilitas Kampus) -->
                 <div class="d-flex justify-content-end">
                     <div class="chat-bubble-floating bubble-right text-start" style="border-left: 4px solid var(--zd-accent-purple);">
                         <div class="chat-bubble-author">
@@ -86,7 +77,6 @@
             </div>
         </div>
 
-        <!-- Trust Row / Unit Kampus Terlayani (Image 1 Bottom) -->
         <div class="row pt-5 mt-3 align-items-center justify-content-center g-3 text-center opacity-75">
             <div class="col-12 col-md-auto text-light small fw-semibold text-uppercase tracking-wider">
                 Cakupan Pemeliharaan Terpadu:
@@ -100,11 +90,6 @@
     </div>
 </section>
 
-
-{{-- =========================================================================
-     2. METRICS SECTION (Terinspirasi Penuh dari Gambar Referensi 3)
-     "Trillions of Data Points Turned Into Billions..." & 3 Bento Stat Cards
-     ========================================================================= --}}
 <section class="py-5 mb-5" id="data-statistik">
     <div class="container">
         <div class="text-center mb-5">
@@ -117,7 +102,7 @@
         </div>
 
         <div class="row g-4">
-            <!-- Metric 1: Light Card -->
+
             <div class="col-12 col-md-4">
                 <div class="metric-card-light">
                     <span class="text-uppercase tracking-wider small fw-bold text-muted mb-2">Penyelesaian Tuntas</span>
@@ -129,7 +114,6 @@
                 </div>
             </div>
 
-            <!-- Metric 2: Hero Dark Cosmic Card (Image 3 Center Card) -->
             <div class="col-12 col-md-4">
                 <div class="metric-card-dark">
                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -144,7 +128,6 @@
                 </div>
             </div>
 
-            <!-- Metric 3: Light Card -->
             <div class="col-12 col-md-4">
                 <div class="metric-card-light">
                     <span class="text-uppercase tracking-wider small fw-bold text-muted mb-2">Kecepatan Respons</span>
@@ -159,14 +142,9 @@
     </div>
 </section>
 
-
-{{-- =========================================================================
-     3. FORMULIR PENGADUAN RESMI (Tugas Utama Desainer Antarmuka - FR-03, NFR-02, NFR-06)
-     Form Bersih, Aksesibel, Sentuhan Zendesk Minimalis + Side Interactive Card
-     ========================================================================= --}}
 <section class="py-5 bg-white border-top border-bottom mb-5" id="form-pengaduan">
     <div class="container">
-        <!-- Notifikasi & Alert -->
+
         <div class="row justify-content-center">
             <div class="col-12 col-xl-11">
                 @include('components.alert')
@@ -174,7 +152,7 @@
         </div>
 
         <div class="row g-4 justify-content-center">
-            <!-- Kolom Kiri: Formulir Pengaduan Publik -->
+
             <div class="col-12 col-lg-7 col-xl-7">
                 <div class="form-card-zendesk">
                     <div class="d-flex align-items-center gap-2 mb-2 text-primary fw-semibold small" style="font-size: 0.8125rem;">
@@ -190,21 +168,20 @@
                     <form method="POST" action="{{ route('complaints.store') }}" novalidate>
                         @csrf
 
-                        <!-- 1. Nama Pelapor (reporter_name) -->
                         <div class="mb-3">
                             <label for="reporter_name" class="form-label-zd">
                                 Nama Lengkap Pelapor <span class="required-star">*</span>
                             </label>
                             <div class="input-clean-group">
                                 <i class="bi bi-person input-icon"></i>
-                                <input 
-                                    type="text" 
-                                    id="reporter_name" 
-                                    name="reporter_name" 
-                                    class="form-control form-control-zd @error('reporter_name') is-invalid @enderror" 
-                                    value="{{ old('reporter_name') }}" 
-                                    placeholder="Contoh: Kim Dokja / Wifies" 
-                                    required 
+                                <input
+                                    type="text"
+                                    id="reporter_name"
+                                    name="reporter_name"
+                                    class="form-control form-control-zd @error('reporter_name') is-invalid @enderror"
+                                    value="{{ old('reporter_name') }}"
+                                    placeholder="Contoh: Kim Dokja / Wifies"
+                                    required
                                     maxlength="100"
                                     autocomplete="name"
                                 >
@@ -215,17 +192,16 @@
                             @enderror
                         </div>
 
-                        <!-- 2. Kategori Fasilitas (category_id) -->
                         <div class="mb-3">
                             <label for="category_id" class="form-label-zd">
                                 Kategori Fasilitas <span class="required-star">*</span>
                             </label>
                             <div class="input-clean-group">
                                 <i class="bi bi-tag input-icon"></i>
-                                <select 
-                                    id="category_id" 
-                                    name="category_id" 
-                                    class="form-select form-select-zd @error('category_id') is-invalid @enderror" 
+                                <select
+                                    id="category_id"
+                                    name="category_id"
+                                    class="form-select form-select-zd @error('category_id') is-invalid @enderror"
                                     required
                                 >
                                     <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>Pilih Kategori Kerusakan Fasilitas</option>
@@ -250,21 +226,20 @@
                             @enderror
                         </div>
 
-                        <!-- 3. Lokasi Fasilitas (location) -->
                         <div class="mb-3">
                             <label for="location" class="form-label-zd">
                                 Lokasi Spesifik Fasilitas <span class="required-star">*</span>
                             </label>
                             <div class="input-clean-group">
                                 <i class="bi bi-geo-alt input-icon"></i>
-                                <input 
-                                    type="text" 
-                                    id="location" 
-                                    name="location" 
-                                    class="form-control form-control-zd @error('location') is-invalid @enderror" 
-                                    value="{{ old('location') }}" 
-                                    placeholder="Contoh: Gedung B Lantai 2, Ruang Kuliah 204" 
-                                    required 
+                                <input
+                                    type="text"
+                                    id="location"
+                                    name="location"
+                                    class="form-control form-control-zd @error('location') is-invalid @enderror"
+                                    value="{{ old('location') }}"
+                                    placeholder="Contoh: Gedung B Lantai 2, Ruang Kuliah 204"
+                                    required
                                     maxlength="150"
                                 >
                             </div>
@@ -274,20 +249,19 @@
                             @enderror
                         </div>
 
-                        <!-- 4. Tanggal Kejadian / Laporan (reported_at) -->
                         <div class="mb-3">
                             <label for="reported_at" class="form-label-zd">
                                 Tanggal Temuan / Laporan <span class="required-star">*</span>
                             </label>
                             <div class="input-clean-group">
                                 <i class="bi bi-calendar3 input-icon"></i>
-                                <input 
-                                    type="date" 
-                                    id="reported_at" 
-                                    name="reported_at" 
-                                    class="form-control form-control-zd @error('reported_at') is-invalid @enderror" 
-                                    value="{{ old('reported_at', date('Y-m-d')) }}" 
-                                    required 
+                                <input
+                                    type="date"
+                                    id="reported_at"
+                                    name="reported_at"
+                                    class="form-control form-control-zd @error('reported_at') is-invalid @enderror"
+                                    value="{{ old('reported_at', date('Y-m-d')) }}"
+                                    required
                                     max="{{ date('Y-m-d') }}"
                                 >
                             </div>
@@ -297,17 +271,16 @@
                             @enderror
                         </div>
 
-                        <!-- 5. Deskripsi Masalah (description) -->
                         <div class="mb-4">
                             <label for="description" class="form-label-zd">
                                 Deskripsi Rinci Kerusakan <span class="required-star">*</span>
                             </label>
-                            <textarea 
-                                id="description" 
-                                name="description" 
-                                rows="4" 
-                                class="form-control form-control-zd @error('description') is-invalid @enderror" 
-                                placeholder="Jelaskan secara objektif kondisi sarana yang bermasalah, dampak terhadap perkuliahan, atau ciri-ciri kerusakan yang nampak..." 
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows="4"
+                                class="form-control form-control-zd @error('description') is-invalid @enderror"
+                                placeholder="Jelaskan secara objektif kondisi sarana yang bermasalah, dampak terhadap perkuliahan, atau ciri-ciri kerusakan yang nampak..."
                                 required
                                 style="border-radius: 10px; padding: 0.85rem 1rem;"
                             >{{ old('description') }}</textarea>
@@ -317,7 +290,6 @@
                             @enderror
                         </div>
 
-                        <!-- Action Button -->
                         <div class="pt-2">
                             <button type="submit" class="btn btn-dark w-100 py-3 d-flex align-items-center justify-content-center gap-2 fw-semibold" style="border-radius: 12px; background: #0F172A; border-color: #0F172A; font-size: 0.95rem; box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);">
                                 <i class="bi bi-send-fill"></i>
@@ -331,9 +303,8 @@
                 </div>
             </div>
 
-            <!-- Kolom Kanan: Panduan Pelaporan & Tahapan Status Penanganan (Anti-AI Stepper Pipeline) -->
             <div class="col-12 col-lg-5 col-xl-4" id="alur-penanganan">
-                <!-- Tahapan Status Penanganan (Sleek Stepper Pipeline) -->
+
                 <div class="card card-sipfk border-0 shadow-sm p-4 mb-4 bg-white" style="border-radius: var(--radius-xl);">
                     <div class="d-flex align-items-center justify-content-between pb-3 mb-4 border-bottom">
                         <div>
@@ -347,7 +318,7 @@
                     </div>
 
                     <div class="stepper-pipeline">
-                        <!-- Step 1: Baru -->
+
                         <div class="stepper-step step-baru">
                             <div class="stepper-marker">1</div>
                             <div class="stepper-body">
@@ -363,7 +334,6 @@
                             </div>
                         </div>
 
-                        <!-- Step 2: Diproses -->
                         <div class="stepper-step step-proses">
                             <div class="stepper-marker">2</div>
                             <div class="stepper-body">
@@ -379,7 +349,6 @@
                             </div>
                         </div>
 
-                        <!-- Step 3: Selesai -->
                         <div class="stepper-step step-selesai">
                             <div class="stepper-marker"><i class="bi bi-check2"></i></div>
                             <div class="stepper-body">
@@ -397,7 +366,6 @@
                     </div>
                 </div>
 
-                <!-- Tips Pelaporan Efektif & Posko Darurat -->
                 <div class="card card-sipfk border-0 shadow-sm p-4 bg-white" style="border-radius: var(--radius-xl);">
                     <div class="d-flex align-items-center gap-2 mb-3">
                         <div class="brand-icon-box" style="width: 28px; height: 28px; font-size: 0.85rem; border-radius: 8px; background: #0F172A;">
@@ -434,11 +402,6 @@
     </div>
 </section>
 
-
-{{-- =========================================================================
-     4. ADDITIONAL RESOURCES (Terinspirasi Penuh dari Gambar Referensi 6)
-     4 Card Editorial dengan Foto Nyata & Tag Kategori
-     ========================================================================= --}}
 <section class="py-5 mb-5" id="panduan-layanan">
     <div class="container">
         <div class="text-center mb-5">
@@ -451,7 +414,7 @@
         </div>
 
         <div class="row g-4 mb-5">
-            <!-- Resource 1 -->
+
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="resource-card">
                     <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="Instalasi Listrik" class="resource-card-img">
@@ -466,7 +429,6 @@
                 </div>
             </div>
 
-            <!-- Resource 2 -->
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="resource-card">
                     <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="Layanan Pengaduan" class="resource-card-img">
@@ -481,7 +443,6 @@
                 </div>
             </div>
 
-            <!-- Resource 3 -->
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="resource-card">
                     <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Lab Komputer" class="resource-card-img">
@@ -496,7 +457,6 @@
                 </div>
             </div>
 
-            <!-- Resource 4 -->
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="resource-card">
                     <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Layanan Kampus" class="resource-card-img">
@@ -512,7 +472,6 @@
             </div>
         </div>
 
-        <!-- FAQ Accordion (Image 6 Right/Bottom Reference) -->
         <div class="row justify-content-center pt-3">
             <div class="col-12 col-lg-9">
                 <div class="text-center mb-4">
@@ -578,11 +537,6 @@
     </div>
 </section>
 
-
-{{-- =========================================================================
-     5. FINAL CALL TO ACTION BANNER (Terinspirasi Penuh dari Gambar Referensi 7)
-     "Launch Your First AI Agent Today" Style Dark Cosmic Nebula Banner
-     ========================================================================= --}}
 <section class="container pb-5 mb-4">
     <div class="cta-banner-card text-white">
         <h2 class="display-hero display-5 fw-bold mb-3">

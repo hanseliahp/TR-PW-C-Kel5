@@ -21,7 +21,7 @@
 @endsection
 
 @section('content')
-{{-- Filter Laporan --}}
+
 <div class="card card-sipfk border-0 shadow-sm mb-4 d-print-none bg-white" style="border-radius: var(--radius-xl);">
     <div class="card-body p-3 p-md-4">
         <form method="GET" action="{{ route('admin.reports.index') }}" class="row g-3 align-items-end">
@@ -52,9 +52,8 @@
     </div>
 </div>
 
-{{-- Preview Lembar Laporan PDF (Sesuai Section 5.2 PRD) --}}
 <div class="card card-sipfk border-0 shadow-sm p-4 p-md-5 bg-white" style="border-radius: var(--radius-xl);">
-    {{-- Header Kop Laporan Kampus --}}
+
     <div class="text-center border-bottom pb-4 mb-4">
         <div class="d-inline-flex align-items-center justify-content-center gap-3 mb-2">
             <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="44" height="51" style="width: 44px; height: 51px;">
@@ -70,7 +69,6 @@
         </div>
     </div>
 
-    {{-- Tabel Cetak Laporan (table-responsive untuk viewport ponsel & desktop) --}}
     <div class="table-responsive">
         <table class="table table-bordered table-sm align-middle small mb-0">
             <thead class="table-light text-center">

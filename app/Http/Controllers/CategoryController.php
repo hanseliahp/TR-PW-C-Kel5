@@ -11,9 +11,6 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Menampilkan daftar seluruh kategori fasilitas di panel admin (FR-04).
-     */
     public function index(): View
     {
         $categories = Category::withCount('complaints')->orderBy('name')->get();
@@ -21,9 +18,6 @@ class CategoryController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
-    /**
-     * Menyimpan kategori fasilitas baru (FR-04, FR-10).
-     */
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -45,9 +39,6 @@ class CategoryController extends Controller
         );
     }
 
-    /**
-     * Memperbarui kategori fasilitas yang sudah ada (FR-04, FR-10).
-     */
     public function update(Request $request, Category $category): RedirectResponse
     {
         $validated = $request->validate([
@@ -69,12 +60,6 @@ class CategoryController extends Controller
         );
     }
 
-    /**
-     * Menghapus kategori fasilitas (FR-04, BR-08).
-     *
-     * BR-08: Kategori yang masih digunakan oleh pengaduan tidak boleh dihapus
-     * sebelum relasinya ditangani.
-     */
     public function destroy(Category $category): RedirectResponse
     {
         if ($category->complaints()->exists()) {

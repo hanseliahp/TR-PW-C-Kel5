@@ -1,41 +1,13 @@
-/**
- * SIPFK - Sistem Informasi Pengaduan Fasilitas Kampus
- * Design System inspired by Zendesk AI / Modern Editorial Civic UI
- * Typography: Plus Jakarta Sans (Bespoke Human Civic Tech Typography)
- */
-
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
 
 :root {
-    /* Zendesk Reference Palette (from Design Spec Sheet) */
+
     --zd-text-main:       #100F1B;
     --zd-text-secondary:  #716F7E;
-    --zd-text-muted:      #9B99A8;
-    
-    --zd-accent-purple:   #6E47FF;
-    --zd-accent-purple-lt:#9E84FF;
-    --zd-accent-blue:     #1D4ED8;
-    --zd-accent-cyan:     #38BDF8;
-
-    /* Dark Atmospheric Tokens */
-    --zd-midnight-950:    #070A12;
-    --zd-midnight-900:    #0B1120;
-    --zd-midnight-800:    #111827;
-    --zd-midnight-card:   #0E1726;
-
-    /* Light Canvas Surfaces */
-    --zd-bg-canvas:       #F9FAFD;
-    --zd-bg-surface:      #FFFFFF;
-    --zd-bg-subtle:       #F3F4F8;
-    
-    /* Hairline & Glass Borders */
-    --zd-border-light:    rgba(16, 15, 27, 0.08);
-    --zd-border-card:     rgba(16, 15, 27, 0.06);
-    --zd-border-dark:     rgba(255, 255, 255, 0.12);
-    --zd-border-dark-subtle: rgba(255, 255, 255, 0.08);
-
-    /* Semantic Status Tokens (BR-03) */
-    --zd-status-baru-bg:     #FEF3C7;
+--zd-accent-purple:   #6E47FF;
+--zd-bg-canvas:       #F9FAFD;
+--zd-border-light:    rgba(16, 15, 27, 0.08);
+--zd-status-baru-bg:     #FEF3C7;
     --zd-status-baru-text:   #92400E;
     --zd-status-baru-dot:    #D97706;
     --zd-status-baru-border: #FDE68A;
@@ -50,24 +22,17 @@
     --zd-status-selesai-dot:    #059669;
     --zd-status-selesai-border: #A7F3D0;
 
-    /* Human-Crafted Typography (Plus Jakarta Sans) */
     --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    
+
     --radius-pill: 9999px;
     --radius-xl: 24px;
     --radius-lg: 16px;
     --radius-md: 12px;
-    --radius-sm: 8px;
-
-    /* Shadows */
-    --shadow-soft: 0 4px 20px -2px rgba(16, 15, 27, 0.06);
+--shadow-soft: 0 4px 20px -2px rgba(16, 15, 27, 0.06);
     --shadow-hover: 0 12px 32px -4px rgba(16, 15, 27, 0.10);
-    --shadow-glow-blue: 0 0 60px -10px rgba(37, 99, 235, 0.35);
-    --shadow-glow-purple: 0 0 60px -10px rgba(110, 71, 255, 0.35);
 }
 
-/* Base Resets & Global Typography */
 body {
     font-family: var(--font-body);
     background-color: var(--zd-bg-canvas);
@@ -79,7 +44,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Accessibility: Keyboard Skip Link */
 .skip-link {
     position: absolute;
     top: -50px;
@@ -99,7 +63,6 @@ body {
     outline: 2px solid var(--zd-accent-purple);
 }
 
-/* Typography Signatures (Zendesk Italic Keywords & Tight Tracking) */
 .display-hero {
     font-family: var(--font-display);
     font-weight: 700;
@@ -127,7 +90,6 @@ body {
     color: var(--zd-accent-purple);
 }
 
-/* Atmospheric Aura Backgrounds */
 .bg-aura-hero {
     background: radial-gradient(120% 100% at 50% 0%, #1E3A8A 0%, #0F172A 48%, #080D1A 100%);
     position: relative;
@@ -144,16 +106,7 @@ body {
     filter: blur(80px);
     pointer-events: none;
 }
-.bg-aura-dark {
-    background: radial-gradient(100% 100% at 50% 20%, #172554 0%, #0B1120 70%, #050811 100%);
-}
-.bg-nebula-card {
-    background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(17, 24, 39, 0.95) 60%, rgba(88, 28, 135, 0.8) 100%);
-    position: relative;
-    overflow: hidden;
-}
 
-/* Zendesk Pill Buttons */
 .btn-pill-dark {
     background-color: var(--zd-text-main);
     color: #FFFFFF;
@@ -220,30 +173,6 @@ body {
     color: #FFFFFF;
 }
 
-.btn-pill-primary {
-    background: linear-gradient(135deg, var(--zd-accent-purple) 0%, var(--zd-accent-blue) 100%);
-    color: #FFFFFF;
-    border: none;
-    border-radius: var(--radius-pill);
-    padding: 0.75rem 1.75rem;
-    font-weight: 600;
-    font-size: 0.95rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    min-height: 46px;
-    box-shadow: 0 4px 20px rgba(110, 71, 255, 0.3);
-}
-.btn-pill-primary:hover {
-    filter: brightness(1.1);
-    color: #FFFFFF;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(110, 71, 255, 0.45);
-}
-
-/* Micro Verification Pills */
 .verify-pill {
     display: inline-flex;
     align-items: center;
@@ -256,7 +185,6 @@ body {
     color: #38BDF8;
 }
 
-/* Navbar Modern Styling */
 .navbar-zendesk {
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(16px);
@@ -324,7 +252,6 @@ body {
     line-height: 1;
 }
 
-/* SIPFK Shield Brand Logo & Lockup */
 .navbar-brand-zd {
     flex-shrink: 0;
     gap: 0.55rem;
@@ -402,7 +329,6 @@ body {
     color: rgba(255, 255, 255, 0.85);
 }
 
-/* Hero Showcase Card with Live Interactive Mockup (Image 1 Reference) */
 .hero-showcase-container {
     background: #0B1120;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -430,7 +356,6 @@ body {
     pointer-events: none;
 }
 
-/* Floating Dialogue Bubbles (Image 1 Reference) */
 .chat-bubble-floating {
     background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(12px);
@@ -474,7 +399,6 @@ body {
     margin: 0;
 }
 
-/* Partner Trust Logos */
 .partner-logo-item {
     font-family: var(--font-display);
     font-weight: 700;
@@ -490,7 +414,6 @@ body {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* Metric Display Cards (Image 3 Reference) */
 .metric-card-light {
     background: #FFFFFF;
     border: 1px solid var(--zd-border-light);
@@ -558,39 +481,6 @@ body {
     color: #94A3B8;
 }
 
-/* Vertical Feature Tabs (Image 4 Reference) */
-.feature-tab-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-.feature-tab-btn {
-    padding: 1rem 1.25rem;
-    border-radius: var(--radius-md);
-    border: 1px solid transparent;
-    color: #CBD5E1;
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-align: left;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.feature-tab-btn:hover {
-    color: #FFFFFF;
-    background: rgba(255, 255, 255, 0.05);
-}
-.feature-tab-btn.active {
-    background: #FFFFFF;
-    color: var(--zd-text-main);
-    font-weight: 600;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-/* Resource Article Cards (Image 6 Reference) */
 .resource-card {
     background: #FFFFFF;
     border: 1px solid var(--zd-border-light);
@@ -625,7 +515,6 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* Accordion FAQs (Image 6 Reference) */
 .accordion-zendesk .accordion-item {
     border: none;
     border-bottom: 1px solid var(--zd-border-light);
@@ -650,7 +539,6 @@ body {
     line-height: 1.6;
 }
 
-/* Call-to-Action Card Banner (Image 7 Reference) */
 .cta-banner-card {
     background: radial-gradient(100% 120% at 50% 0%, #1E3A8A 0%, #0B1120 60%, #030712 100%);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -673,7 +561,6 @@ body {
     pointer-events: none;
 }
 
-/* Status Badge - Pill Semantic */
 .badge-status {
     display: inline-flex;
     align-items: center;
@@ -713,7 +600,6 @@ body {
 }
 .badge-status-selesai .badge-status-dot { background-color: var(--zd-status-selesai-dot); }
 
-/* Form Controls & Inputs (Zendesk-Clean) */
 .form-card-zendesk {
     background: #FFFFFF;
     border: 1px solid var(--zd-border-light);
@@ -755,7 +641,6 @@ body {
     margin-top: 0.35rem;
 }
 
-/* Human-Crafted Modern Input Styling (Unified & Seamless) */
 .input-clean-group {
     position: relative;
     display: flex;
@@ -792,7 +677,6 @@ body {
     color: #2563EB;
 }
 
-/* Modern Stepper Timeline Pipeline (Anti-AI) */
 .stepper-pipeline {
     position: relative;
     padding-left: 2.25rem;
@@ -859,32 +743,6 @@ body {
     box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.05);
 }
 
-/* Category Selection Pills in Form */
-.category-pill-btn {
-    border: 1px solid #E2E8F0;
-    border-radius: var(--radius-pill);
-    padding: 0.5rem 1.15rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--zd-text-main);
-    background: #FFFFFF;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-.category-pill-btn:hover {
-    border-color: var(--zd-accent-purple);
-    background: #F8FAFC;
-}
-.category-pill-btn.active {
-    background: var(--zd-text-main);
-    color: #FFFFFF;
-    border-color: var(--zd-text-main);
-}
-
-/* Table Styling */
 .table-zendesk {
     margin-bottom: 0;
     vertical-align: middle;
@@ -910,7 +768,6 @@ body {
     background-color: #F8FAFD;
 }
 
-/* Admin Sidebar Styling (Clean Modern Minimalist) */
 .admin-sidebar-zd {
     width: 264px;
     min-width: 264px;
@@ -990,7 +847,6 @@ body {
     color: #FFFFFF;
 }
 
-/* Timeline Components */
 .timeline-list {
     position: relative;
     padding-left: 2rem;
@@ -1030,7 +886,6 @@ body {
     padding: 1rem 1.15rem;
 }
 
-/* Responsive adjustments */
 @media (max-width: 991.98px) {
     .display-hero {
         font-size: 2.25rem;

@@ -15,10 +15,10 @@
         <i class="bi bi-arrow-left"></i>
         <span>Kembali ke Daftar</span>
     </a>
-    <button 
-        type="button" 
+    <button
+        type="button"
         class="btn btn-outline-danger btn-sm rounded-pill px-3 py-2"
-        data-bs-toggle="modal" 
+        data-bs-toggle="modal"
         data-bs-target="#deleteConfirmModal"
         data-action="{{ isset($complaint) ? route('admin.complaints.destroy', $complaint->id) : '#' }}"
         data-name="Pengaduan #{{ $complaint->id ?? '1' }}"
@@ -30,7 +30,7 @@
 
 @section('content')
 <div class="row g-4">
-    {{-- Kolom Kiri: Lembar Informasi Pengaduan Pelapor --}}
+
     <div class="col-12 col-lg-7">
         <div class="card card-sipfk border-0 shadow-sm p-4 mb-4 bg-white" style="border-radius: var(--radius-xl);">
             <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3">
@@ -78,7 +78,6 @@
             </div>
         </div>
 
-        {{-- Form Ubah Status Pengaduan (FR-06, BR-03) --}}
         <div class="card card-sipfk border-0 shadow-sm p-4 bg-white" style="border-radius: var(--radius-xl);">
             <div class="d-flex align-items-center gap-2 mb-2">
                 <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-light text-primary" style="width: 32px; height: 32px; border-radius: 8px;">
@@ -116,9 +115,8 @@
         </div>
     </div>
 
-    {{-- Kolom Kanan: Form Tambah Tindak Lanjut & Timeline Histori --}}
     <div class="col-12 col-lg-5">
-        {{-- Form Input Catatan Tindak Lanjut (FR-07, BR-05) --}}
+
         <div class="card card-sipfk border-0 shadow-sm p-4 mb-4 bg-white" style="border-radius: var(--radius-xl);">
             <div class="d-flex align-items-center gap-2 mb-3">
                 <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary" style="width: 32px; height: 32px; border-radius: 8px;">
@@ -133,12 +131,12 @@
                     <label for="follow_up_note" class="form-label-zd">
                         Catatan Perkembangan / Tindakan Teknisi <span class="required-star">*</span>
                     </label>
-                    <textarea 
-                        id="follow_up_note" 
-                        name="note" 
-                        rows="3" 
-                        class="form-control form-control-zd @error('note') is-invalid @enderror" 
-                        placeholder="Contoh: Teknisi divisi IT telah mengecek lokasi dan mengganti kabel HDMI dengan spare part baru..." 
+                    <textarea
+                        id="follow_up_note"
+                        name="note"
+                        rows="3"
+                        class="form-control form-control-zd @error('note') is-invalid @enderror"
+                        placeholder="Contoh: Teknisi divisi IT telah mengecek lokasi dan mengganti kabel HDMI dengan spare part baru..."
                         required
                     >{{ old('note') }}</textarea>
                     @error('note')
@@ -152,7 +150,6 @@
             </form>
         </div>
 
-        {{-- Timeline Riwayat Catatan Tindak Lanjut (BR-06) --}}
         <div class="card card-sipfk border-0 shadow-sm p-4 bg-white" style="border-radius: var(--radius-xl);">
             <h3 class="h6 fw-bold text-dark mb-3 d-flex align-items-center justify-content-between">
                 <span>Riwayat Penanganan</span>
@@ -181,7 +178,7 @@
                             </li>
                         @endforeach
                     @else
-                        {{-- Dummy Histori untuk Preview Antarmuka --}}
+
                         <li class="timeline-item">
                             <div class="timeline-node" aria-hidden="true"></div>
                             <div class="timeline-content">

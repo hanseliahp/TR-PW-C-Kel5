@@ -4,17 +4,17 @@
 
 @section('content')
 <div class="card card-sipfk border-0 shadow-lg p-3 p-sm-4 bg-white" style="border-radius: var(--radius-xl);">
-    {{-- Role Selector Tabs: Admin vs Pelapor --}}
+
     <ul class="nav nav-pills nav-fill mb-4 p-1 bg-light rounded-pill border" id="authRoleTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button 
-                class="nav-link active rounded-pill fw-semibold small py-2" 
-                id="tab-admin" 
-                data-bs-toggle="pill" 
-                data-bs-target="#panel-admin" 
-                type="button" 
-                role="tab" 
-                aria-controls="panel-admin" 
+            <button
+                class="nav-link active rounded-pill fw-semibold small py-2"
+                id="tab-admin"
+                data-bs-toggle="pill"
+                data-bs-target="#panel-admin"
+                type="button"
+                role="tab"
+                aria-controls="panel-admin"
                 aria-selected="true"
             >
                 <i class="bi bi-shield-lock me-1"></i>
@@ -22,14 +22,14 @@
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button 
-                class="nav-link rounded-pill fw-semibold small py-2 text-secondary" 
-                id="tab-pelapor" 
-                data-bs-toggle="pill" 
-                data-bs-target="#panel-pelapor" 
-                type="button" 
-                role="tab" 
-                aria-controls="panel-pelapor" 
+            <button
+                class="nav-link rounded-pill fw-semibold small py-2 text-secondary"
+                id="tab-pelapor"
+                data-bs-toggle="pill"
+                data-bs-target="#panel-pelapor"
+                type="button"
+                role="tab"
+                aria-controls="panel-pelapor"
                 aria-selected="false"
             >
                 <i class="bi bi-person me-1"></i>
@@ -39,9 +39,7 @@
     </ul>
 
     <div class="tab-content" id="authRoleTabContent">
-        {{-- ==========================================
-             PANEL 1: LOGIN ADMINISTRATOR (FR-01, FR-02)
-             ========================================== --}}
+
         <div class="tab-pane fade show active" id="panel-admin" role="tabpanel" aria-labelledby="tab-admin">
             <div class="text-center mb-3">
                 <h2 class="h5 fw-bold text-dark mb-1">Masuk Panel Administrator</h2>
@@ -51,22 +49,21 @@
             <form method="POST" action="{{ route('login') }}" novalidate>
                 @csrf
 
-                {{-- Input Email dengan Gaya Modern Seamless --}}
                 <div class="mb-3">
                     <label for="email" class="form-label-zd">
                         Alamat Email Admin <span class="required-star">*</span>
                     </label>
                     <div class="input-clean-group">
                         <i class="bi bi-envelope input-icon"></i>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            class="form-control form-control-zd @error('email') is-invalid @enderror" 
-                            value="{{ old('email', 'admin@sipfk.test') }}" 
-                            placeholder="admin@sipfk.test" 
-                            required 
-                            autocomplete="email" 
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-control form-control-zd @error('email') is-invalid @enderror"
+                            value="{{ old('email', 'admin@sipfk.test') }}"
+                            placeholder="admin@sipfk.test"
+                            required
+                            autocomplete="email"
                             autofocus
                         >
                     </div>
@@ -77,20 +74,19 @@
                     @enderror
                 </div>
 
-                {{-- Input Password dengan Gaya Modern Seamless --}}
                 <div class="mb-3">
                     <label for="password" class="form-label-zd">
                         Kata Sandi <span class="required-star">*</span>
                     </label>
                     <div class="input-clean-group">
                         <i class="bi bi-lock input-icon"></i>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            class="form-control form-control-zd @error('password') is-invalid @enderror" 
-                            placeholder="••••••••" 
-                            required 
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control form-control-zd @error('password') is-invalid @enderror"
+                            placeholder="••••••••"
+                            required
                             autocomplete="current-password"
                         >
                     </div>
@@ -101,7 +97,6 @@
                     @enderror
                 </div>
 
-                {{-- Remember Me --}}
                 <div class="mb-3 d-flex justify-content-between align-items-center">
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -112,14 +107,12 @@
                     <span class="badge rounded-pill bg-light text-muted border small">Role Admin</span>
                 </div>
 
-                {{-- Submit Button --}}
                 <button type="submit" class="btn btn-dark w-100 py-3 d-flex align-items-center justify-content-center gap-2 fw-semibold mb-3" style="border-radius: 12px; background: #0F172A; border-color: #0F172A; font-size: 0.95rem; box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Masuk ke Dashboard Admin</span>
                 </button>
             </form>
 
-            {{-- Petunjuk Akun Demo Pengujian Evaluator (DatabaseSeeder) --}}
             <div class="pt-3 border-top">
                 <div class="p-2 p-sm-3 rounded-3 border bg-light text-secondary small">
                     <div class="fw-bold text-dark d-flex align-items-center gap-1 mb-1">
@@ -138,10 +131,6 @@
             </div>
         </div>
 
-        {{-- ==========================================
-             PANEL 2: INFORMASI PELAPOR / MAHASISWA
-             (Menjelaskan Kebijakan PRD Seksi 3 & 15)
-             ========================================== --}}
         <div class="tab-pane fade" id="panel-pelapor" role="tabpanel" aria-labelledby="tab-pelapor">
             <div class="text-center py-2">
                 <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary mx-auto mb-3" style="width: 50px; height: 50px; font-size: 1.35rem; border-radius: 14px;">

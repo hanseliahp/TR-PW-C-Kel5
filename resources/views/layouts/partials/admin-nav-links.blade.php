@@ -1,8 +1,3 @@
-{{--
-  Shared Navigation Links (Dipakai oleh Desktop Sidebar & Mobile Offcanvas)
-  Memastikan keseragaman struktur menu navigasi dengan gaya Zendesk Platform
---}}
-
 <div class="d-flex flex-column h-100">
     <div class="sidebar-section-label">Ringkasan &amp; Analisis</div>
     <a href="{{ route('admin.dashboard') }}" class="sidebar-link-zd {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">

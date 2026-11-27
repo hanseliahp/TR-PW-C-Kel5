@@ -9,29 +9,26 @@
     <title>@yield('title', 'SIPFK - Solusi Nyata Penanganan Fasilitas Kampus')</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo-sipfk-icon.svg') }}">
 
-    <!-- Google Fonts: Plus Jakarta Sans (Human-crafted Modern Civic Typography) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap 5.3.3 CSS (Offline Local Vendor with CDN Fallback) -->
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';">
-    <!-- Bootstrap Icons 1.11.3 -->
+
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css';">
-    <!-- SIPFK Design System -->
+
     <link rel="stylesheet" href="{{ asset('css/sipfk-custom.css') }}?v={{ filemtime(public_path('css/sipfk-custom.css')) }}">
 
     @stack('styles')
 </head>
 <body class="d-flex flex-column min-vh-100">
-    <!-- Aksesibilitas: Skip Link -->
+
     <a href="#main-content" class="skip-link">Loncat ke Konten Utama</a>
 
-    <!-- Top Navigation Bar (Zendesk-Style Clean Navbar) -->
     <header class="sticky-top">
         <nav class="navbar navbar-expand-lg navbar-zendesk" aria-label="Navigasi Utama Publik">
             <div class="container">
-                <!-- Brand Logo -->
+
                 <a class="navbar-brand-zd" href="{{ url('/') }}">
                     <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="34" height="39" class="brand-logo-shield">
                     <div class="brand-wordmark">
@@ -40,12 +37,10 @@
                     </div>
                 </a>
 
-                <!-- Mobile Hamburger Toggler -->
                 <button class="navbar-toggler border-0 shadow-none px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPublicContent" aria-controls="navbarPublicContent" aria-expanded="false" aria-label="Buka navigasi menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Nav Links -->
                 <div class="collapse navbar-collapse" id="navbarPublicContent">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center gap-1 gap-lg-3">
                         <li class="nav-item">
@@ -70,7 +65,6 @@
                         </li>
                     </ul>
 
-                    <!-- Right Action Button -->
                     <div class="d-flex align-items-center gap-2 pt-2 pt-lg-0">
                         <a href="#form-pengaduan" class="btn btn-link text-decoration-none text-dark fw-semibold d-none d-xl-inline-block small">
                             Lapor Cepat
@@ -85,17 +79,15 @@
         </nav>
     </header>
 
-    <!-- Konten Utama Halaman -->
     <main id="main-content" class="flex-grow-1">
-        <!-- Yield Content -->
+
         @yield('content')
     </main>
 
-    <!-- Footer Publik (Zendesk-Inspired Multi-Column Minimalist) -->
     <footer class="footer-sipfk bg-white border-top mt-auto pt-5 pb-4">
         <div class="container">
             <div class="row g-4 mb-5">
-                <!-- Brand & Mission -->
+
                 <div class="col-12 col-lg-4">
                     <a href="{{ url('/') }}" class="d-inline-flex align-items-center gap-2 text-decoration-none mb-3">
                         <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="34" height="39" class="brand-logo-shield">
@@ -115,7 +107,6 @@
                     </div>
                 </div>
 
-                <!-- Kolom 2: Layanan Fasilitas -->
                 <div class="col-6 col-md-3 col-lg-2">
                     <h4 class="fs-6 fw-bold text-dark mb-3">Layanan</h4>
                     <ul class="list-unstyled d-flex flex-column gap-2 small text-secondary mb-0">
@@ -126,7 +117,6 @@
                     </ul>
                 </div>
 
-                <!-- Kolom 3: Cakupan Unit -->
                 <div class="col-6 col-md-3 col-lg-3">
                     <h4 class="fs-6 fw-bold text-dark mb-3">Cakupan Fasilitas</h4>
                     <ul class="list-unstyled d-flex flex-column gap-2 small text-secondary mb-0">
@@ -138,7 +128,6 @@
                     </ul>
                 </div>
 
-                <!-- Kolom 4: Kredensial & Bantuan -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <h4 class="fs-6 fw-bold text-dark mb-3">Bantuan Cepat</h4>
                     <p class="text-secondary small mb-3">
@@ -164,7 +153,6 @@
         </div>
     </footer>
 
-    <!-- Bootstrap 5.3.3 Bundle JS (with Popper) -->
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js';"></script>
 
     @stack('scripts')

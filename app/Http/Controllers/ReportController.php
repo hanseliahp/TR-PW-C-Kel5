@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
-    /**
-     * Menampilkan halaman rekapitulasi laporan dengan filter periode dan status.
-     */
     public function index(Request $request)
     {
         $query = Complaint::with(['category', 'followUps.admin'])->latest('reported_at');
@@ -36,9 +33,6 @@ class ReportController extends Controller
         return view('admin.reports.index', compact('complaints', 'categories'));
     }
 
-    /**
-     * Menghasilkan dokumen laporan PDF berdasarkan filter aktif dan data riil database.
-     */
     public function exportPdf(Request $request)
     {
         $query = Complaint::with(['category', 'followUps.admin'])->latest('reported_at');
@@ -67,7 +61,6 @@ class ReportController extends Controller
 
         $filename = 'Laporan_Pengaduan_SIPFK_'.date('Ymd_His').'.pdf';
 
-        // Jika library DomPDF tersedia dalam environment, dapat digunakan; jika tidak, gunakan SimplePdfReport murni
         if (class_exists(Pdf::class)) {
             try {
                 $pdf = Pdf::loadView('admin.reports.pdf', compact('complaints', 'startDateFormatted', 'endDateFormatted'))
@@ -79,11 +72,10 @@ class ReportController extends Controller
 
                 return $pdf->download($filename);
             } catch (\Throwable $e) {
-                // Fallback otomatis ke SimplePdfReport murni jika terjadi kendala driver
+
             }
         }
 
-        // SimplePdfReport Generator (Standar PDF 1.4 Native & Cepat)
         $report = SimplePdfReport::create(
             'SIPFK - SISTEM INFORMASI PENGADUAN FASILITAS KAMPUS',
             'Laporan Rekapitulasi Data Pengaduan dan Tindak Lanjut Kerusakan Fasilitas'

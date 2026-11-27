@@ -21,27 +21,26 @@
 @endsection
 
 @section('content')
-{{-- Filter & Search Toolbar (Zendesk-Style Pill Inputs) --}}
+
 <div class="card card-sipfk border-0 shadow-sm mb-4 bg-white" style="border-radius: var(--radius-xl);">
     <div class="card-body p-3 p-md-4">
         <form method="GET" action="{{ route('admin.complaints.index') }}" class="row g-3 align-items-end">
-            {{-- Search Keyword --}}
+
             <div class="col-12 col-md-4">
                 <label for="filter_search" class="form-label-zd">Pencarian Kata Kunci</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light text-muted border-end-0"><i class="bi bi-search"></i></span>
-                    <input 
-                        type="text" 
-                        id="filter_search" 
-                        name="search" 
-                        class="form-control form-control-zd border-start-0" 
-                        placeholder="Nama pelapor, gedung, atau lokasi..." 
+                    <input
+                        type="text"
+                        id="filter_search"
+                        name="search"
+                        class="form-control form-control-zd border-start-0"
+                        placeholder="Nama pelapor, gedung, atau lokasi..."
                         value="{{ request('search') }}"
                     >
                 </div>
             </div>
 
-            {{-- Filter Status --}}
             <div class="col-6 col-md-3">
                 <label for="filter_status" class="form-label-zd">Status Penanganan</label>
                 <select id="filter_status" name="status" class="form-select form-select-zd">
@@ -52,7 +51,6 @@
                 </select>
             </div>
 
-            {{-- Filter Kategori --}}
             <div class="col-6 col-md-3">
                 <label for="filter_category" class="form-label-zd">Kategori Fasilitas</label>
                 <select id="filter_category" name="category_id" class="form-select form-select-zd">
@@ -67,7 +65,6 @@
                 </select>
             </div>
 
-            {{-- Tombol Aksi Filter --}}
             <div class="col-12 col-md-2 d-flex gap-2">
                 <button type="submit" class="btn-pill-dark flex-grow-1 justify-content-center py-2" style="font-size: 0.875rem;">
                     <i class="bi bi-funnel"></i>
@@ -83,7 +80,6 @@
     </div>
 </div>
 
-{{-- Tabel Daftar Pengaduan (NFR-02, AC-10) --}}
 <div class="card card-sipfk border-0 shadow-sm bg-white" style="border-radius: var(--radius-xl); overflow: hidden;">
     <div class="card-header bg-white border-bottom py-3 px-3 px-md-4 d-flex justify-content-between align-items-center">
         <div>
@@ -147,11 +143,11 @@
                                     <a href="{{ route('admin.complaints.show', $item->id) }}" class="btn btn-outline-secondary btn-icon-sm rounded-circle me-1" title="Lihat Detail & Tindak Lanjut">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <button 
-                                        type="button" 
-                                        class="btn btn-outline-danger btn-icon-sm rounded-circle" 
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-danger btn-icon-sm rounded-circle"
                                         title="Hapus Pengaduan"
-                                        data-bs-toggle="modal" 
+                                        data-bs-toggle="modal"
                                         data-bs-target="#deleteConfirmModal"
                                         data-action="{{ route('admin.complaints.destroy', $item->id) }}"
                                         data-name="Pengaduan dari {{ $item->reporter_name }}"
@@ -163,7 +159,7 @@
                         </tr>
                     @endforeach
                 @else
-                    {{-- Dummy Fallback --}}
+
                     @php
                         $dummyRows = [
                             [
@@ -250,7 +246,6 @@
         </table>
     </div>
 
-    {{-- Pagination Component Reusable --}}
     <div class="card-footer bg-white border-top px-3 px-md-4 py-2">
         @include('components.pagination', ['paginator' => $complaints ?? null])
     </div>

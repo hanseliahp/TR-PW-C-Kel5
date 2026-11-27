@@ -1,23 +1,18 @@
-{{--
-  Komponen Reusable Pagination Tabel (Bootstrap 5 Responsive)
-  Mendukung instance LengthAwarePaginator Laravel
---}}
-
 @props(['paginator' => null])
 
 @if ($paginator && $paginator->hasPages())
     <nav class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 pt-3" aria-label="Navigasi Halaman Tabel">
         <div class="small text-muted">
-            Menampilkan 
-            <span class="fw-semibold text-dark">{{ $paginator->firstItem() ?? 0 }}</span> 
-            sampai 
-            <span class="fw-semibold text-dark">{{ $paginator->lastItem() ?? 0 }}</span> 
-            dari 
+            Menampilkan
+            <span class="fw-semibold text-dark">{{ $paginator->firstItem() ?? 0 }}</span>
+            sampai
+            <span class="fw-semibold text-dark">{{ $paginator->lastItem() ?? 0 }}</span>
+            dari
             <span class="fw-semibold text-dark">{{ $paginator->total() }}</span> entri
         </div>
 
         <ul class="pagination pagination-sm mb-0">
-            {{-- Previous Page Link --}}
+
             @if ($paginator->onFirstPage())
                 <li class="page-item disabled" aria-disabled="true">
                     <span class="page-link"><i class="bi bi-chevron-left"></i></span>
@@ -30,7 +25,6 @@
                 </li>
             @endif
 
-            {{-- Pagination Elements --}}
             @foreach ($paginator->getUrlRange(max(1, $paginator->currentPage() - 2), min($paginator->lastPage(), $paginator->currentPage() + 2)) as $page => $url)
                 @if ($page == $paginator->currentPage())
                     <li class="page-item active" aria-current="page"><span class="page-link" style="background-color: var(--sipfk-brand); border-color: var(--sipfk-brand);">{{ $page }}</span></li>
@@ -39,7 +33,6 @@
                 @endif
             @endforeach
 
-            {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li class="page-item">
                     <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="Selanjutnya">
@@ -54,7 +47,7 @@
         </ul>
     </nav>
 @elseif(!$paginator)
-    {{-- Static fallback preview --}}
+
     <nav class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 pt-3" aria-label="Navigasi Halaman Tabel Demo">
         <div class="small text-muted">
             Menampilkan data halaman aktif

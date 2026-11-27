@@ -11,14 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class FollowUpController extends Controller
 {
-    /**
-     * Menyimpan catatan tindak lanjut pengaduan fasilitas kampus (FR-07, BR-05, BR-06).
-     *
-     * Aturan bisnis yang diterapkan:
-     * - BR-05: Catatan tindak lanjut terhubung otomatis ke complaint_id dan ID admin yang sedang login (Auth::id()).
-     * - BR-06: Mendukung pencatatan multi-follow-up (lebih dari satu catatan per pengaduan).
-     * - NFR-04: Validasi sisi server memastikan teks catatan wajib diisi dengan batasan panjang wajar.
-     */
     public function store(Request $request, Complaint $complaint): RedirectResponse
     {
         $validated = $request->validate([

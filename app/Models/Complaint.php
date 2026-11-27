@@ -24,7 +24,7 @@ class Complaint extends Model
     ];
 
     protected $attributes = [
-        'status' => self::STATUS_BARU, // BR-04
+        'status' => self::STATUS_BARU,
     ];
 
     protected function casts(): array
@@ -34,7 +34,6 @@ class Complaint extends Model
         ];
     }
 
-    /** Daftar status valid (BR-03), dipakai untuk validasi: Rule::in(Complaint::statuses()) */
     public static function statuses(): array
     {
         return [self::STATUS_BARU, self::STATUS_DIPROSES, self::STATUS_SELESAI];
