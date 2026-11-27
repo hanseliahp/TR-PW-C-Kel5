@@ -144,8 +144,9 @@
                     <p class="text-secondary small mb-3">
                         Ada kondisi darurat fasilitas yang membahayakan keselamatan kampus?
                     </p>
-                    <a href="#form-pengaduan" class="btn-pill-dark w-100 justify-content-center py-2" style="font-size: 0.875rem;">
-                        <i class="bi bi-telephone-outbound me-1"></i> Kontak Tim Sarpras
+                    <a href="mailto:fti.laboran@adm.uksw.edu" class="btn-pill-dark w-100 justify-content-center py-2" style="font-size: 0.875rem;" title="Kirim Email ke Tim Sarpras FTI UKSW (fti.laboran@adm.uksw.edu)" aria-label="Kontak Tim Sarpras via email fti.laboran@adm.uksw.edu">
+                        <i class="bi bi-envelope-fill"></i>
+                        <span>Kontak Tim Sarpras</span>
                     </a>
                 </div>
             </div>
