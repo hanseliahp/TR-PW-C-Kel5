@@ -9,26 +9,24 @@
     <title>@yield('title', 'Admin Panel') &mdash; SIPFK</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo-sipfk-icon.svg') }}">
 
-    <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap 5.3.3 CSS (Offline Local Vendor with CDN Fallback) -->
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';">
-    <!-- Bootstrap Icons 1.11.3 -->
+
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css';">
-    <!-- SIPFK Design System -->
+
     <link rel="stylesheet" href="{{ asset('css/sipfk-custom.css') }}?v={{ filemtime(public_path('css/sipfk-custom.css')) }}">
 
     @stack('styles')
 </head>
 <body style="background-color: var(--zd-bg-canvas);">
-    <!-- Aksesibilitas: Skip Link -->
+
     <a href="#admin-main-content" class="skip-link">Loncat ke Konten Panel Admin</a>
 
     <div class="d-flex min-vh-100">
-        <!-- Sidebar Desktop Full-Height Sticky (>= 992px) -->
+
         <aside class="admin-sidebar-zd d-none d-lg-flex flex-shrink-0 d-print-none" aria-label="Sidebar Navigasi Desktop">
             <div class="admin-sidebar-header">
                 <a class="navbar-brand-zd" href="{{ route('admin.dashboard') }}">
@@ -45,7 +43,6 @@
             </div>
         </aside>
 
-        <!-- Sidebar Mobile (Bootstrap Offcanvas < 992px) -->
         <div class="offcanvas offcanvas-start d-print-none" tabindex="-1" id="adminSidebarOffcanvas" aria-labelledby="adminSidebarOffcanvasLabel" style="width: 280px;">
             <div class="offcanvas-header border-bottom py-3">
                 <div class="d-flex align-items-center gap-2">
@@ -62,13 +59,12 @@
             </div>
         </div>
 
-        <!-- Kolom Kanan: Topbar (Tidak Sticky) + Area Konten Utama -->
         <div class="flex-grow-1 d-flex flex-column" style="min-width: 0;">
-            <!-- Top Navigation Bar (Ikut scroll halaman agar sidebar tetap utuh dari atas) -->
+
             <header class="d-print-none">
                 <nav class="navbar navbar-expand admin-topbar-zd px-3 px-md-4 py-2" aria-label="Navigasi Atas Admin">
                     <div class="container-fluid px-0">
-                        <!-- Hamburger & Brand Mobile (< 992px) -->
+
                         <div class="d-flex align-items-center d-lg-none">
                             <button class="btn btn-outline-secondary me-2 btn-icon-sm rounded-circle" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebarOffcanvas" aria-controls="adminSidebarOffcanvas" aria-label="Buka navigasi panel">
                                 <i class="bi bi-list fs-5" aria-hidden="true"></i>
@@ -83,21 +79,18 @@
                             </a>
                         </div>
 
-                        <!-- Konteks Panel Desktop (>= 992px) -->
                         <div class="d-none d-lg-flex align-items-center gap-2 text-secondary small">
                             <span class="fw-medium text-dark">Panel Pengelolaan Sarpras Kampus</span>
                             <span class="text-muted">&bull;</span>
                             <span class="text-muted">FTI UKSW</span>
                         </div>
 
-                        <!-- Navigasi Kanan (User & Logout) -->
                         <div class="ms-auto d-flex align-items-center gap-2 gap-md-3">
                             <a href="{{ url('/') }}" target="_blank" class="btn btn-light btn-sm text-secondary border rounded-pill d-none d-md-inline-flex align-items-center gap-1 px-3" title="Lihat Tampilan Publik Form Pengaduan">
                                 <i class="bi bi-box-arrow-up-right small"></i>
                                 <span>Web Publik</span>
                             </a>
 
-                            <!-- User Identity Badge (Zendesk Pill) -->
                             <div class="d-flex align-items-center gap-2 ps-2 border-start">
                                 <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-dark text-white rounded-circle" style="width: 34px; height: 34px; font-size: 0.95rem;">
                                     <i class="bi bi-person-fill" aria-hidden="true"></i>
@@ -108,7 +101,6 @@
                                 </div>
                             </div>
 
-                            <!-- Logout Button Form -->
                             <form method="POST" action="{{ route('logout') }}" class="d-inline ms-1">
                                 @csrf
                                 <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill d-inline-flex align-items-center gap-1 px-3" title="Keluar dari Panel Admin">
@@ -121,9 +113,8 @@
                 </nav>
             </header>
 
-            <!-- Area Konten Utama Panel Admin -->
             <main id="admin-main-content" class="flex-grow-1 p-3 p-md-4 p-xl-5" style="min-width: 0;">
-                <!-- Header Halaman & Breadcrumb -->
+
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
                     <div>
                         <nav aria-label="breadcrumb">
@@ -142,19 +133,15 @@
                     </div>
                 </div>
 
-                <!-- Notifikasi & Alert Global -->
                 @include('components.alert')
 
-                <!-- Konten Utama Tampilan Halaman -->
                 @yield('content')
             </main>
         </div>
     </div>
 
-    <!-- Reusable Delete Confirmation Modal (Universal) -->
     @include('components.delete-confirm-modal')
 
-    <!-- Bootstrap 5.3.3 Bundle JS (with Popper) -->
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js';"></script>
 
     @stack('scripts')

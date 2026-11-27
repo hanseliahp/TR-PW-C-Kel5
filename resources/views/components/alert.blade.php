@@ -1,8 +1,3 @@
-{{-- 
-  Komponen Reusable Alert & Notifikasi Validasi
-  Mendukung flash message (success, error, warning, info) dan error validasi Laravel ($errors)
---}}
-
 @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-2 border-0 shadow-sm mb-4" role="alert" style="background-color: #ECFDF5; color: #065F46; border-left: 4px solid #059669 !important; border-radius: var(--radius-md) !important;">
         <i class="bi bi-check-circle-fill fs-5 text-success"></i>
@@ -43,7 +38,6 @@
     </div>
 @endif
 
-{{-- Ringkasan Error Validasi Formulir Sisi Server (NFR-04, AC-09) --}}
 @if(isset($errors) && $errors->any())
     <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="background-color: #FEF2F2; color: #991B1B; border-left: 4px solid #DC2626 !important; border-radius: var(--radius-md) !important;">
         <div class="d-flex align-items-start gap-2">

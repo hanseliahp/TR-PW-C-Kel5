@@ -21,9 +21,9 @@
 @endsection
 
 @section('content')
-{{-- 4 Kartu Statistik Dashboard (Terinspirasi Bento Metric Card Gambar 3) --}}
+
 <div class="row g-3 g-md-4 mb-4">
-    {{-- 1. Total Pengaduan (Hero Dark Accent Card) --}}
+
     <div class="col-12 col-sm-6 col-xl-3">
         <div class="metric-card-dark p-4" style="border-radius: var(--radius-lg);">
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -38,7 +38,6 @@
         </div>
     </div>
 
-    {{-- 2. Status Baru --}}
     <div class="col-12 col-sm-6 col-xl-3">
         <div class="metric-card-light p-4" style="border-radius: var(--radius-lg); border-top: 4px solid var(--zd-status-baru-dot);">
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -53,7 +52,6 @@
         </div>
     </div>
 
-    {{-- 3. Status Diproses --}}
     <div class="col-12 col-sm-6 col-xl-3">
         <div class="metric-card-light p-4" style="border-radius: var(--radius-lg); border-top: 4px solid var(--zd-status-proses-dot);">
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -68,7 +66,6 @@
         </div>
     </div>
 
-    {{-- 4. Status Selesai --}}
     <div class="col-12 col-sm-6 col-xl-3">
         <div class="metric-card-light p-4" style="border-radius: var(--radius-lg); border-top: 4px solid var(--zd-status-selesai-dot);">
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -84,7 +81,6 @@
     </div>
 </div>
 
-{{-- Tabel Ringkasan Pengaduan Terbaru --}}
 <div class="card card-sipfk border-0 shadow-sm mb-4" style="border-radius: var(--radius-xl); overflow: hidden;">
     <div class="card-header bg-white border-bottom py-3 px-3 px-md-4 d-flex justify-content-between align-items-center">
         <div>
@@ -138,7 +134,7 @@
                         </tr>
                     @endforeach
                 @else
-                    {{-- Preview Dummy Data jika database belum diisi --}}
+
                     <tr>
                         <td class="text-muted small">1</td>
                         <td class="text-nowrap small"><i class="bi bi-calendar3 me-1 text-muted"></i> 17 Nov 2026</td>

@@ -11,12 +11,10 @@ return new class extends Migration
         Schema::create('follow_ups', function (Blueprint $table) {
             $table->id();
 
-            // Tindak lanjut ikut terhapus bila pengaduannya dihapus
             $table->foreignId('complaint_id')
                 ->constrained('complaints')
                 ->cascadeOnDelete();
 
-            // BR-05: catatan terhubung ke admin yang menulis
             $table->foreignId('admin_id')
                 ->constrained('users')
                 ->restrictOnDelete();

@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    /**
-     * Menampilkan halaman login admin.
-     */
     public function showLoginForm()
     {
         if (Auth::check()) {
@@ -19,10 +16,6 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    /**
-     * Memproses autentikasi kredensial admin.
-     * Menggunakan validasi, Auth::attempt, regenerasi session, dan proteksi session fixation.
-     */
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -46,9 +39,6 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    /**
-     * Memproses logout admin dengan mengakhiri sesi dan regenerasi token CSRF.
-     */
     public function logout(Request $request)
     {
         Auth::logout();

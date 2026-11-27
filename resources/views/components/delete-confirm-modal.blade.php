@@ -1,8 +1,3 @@
-{{--
-  Komponen Reusable Modal Konfirmasi Hapus (Bootstrap 5)
-  Mencegah aksi penghapusan tidak disengaja sesuai standar keamanan & UX (BR-08)
---}}
-
 <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg p-2" style="border-radius: var(--radius-xl);">

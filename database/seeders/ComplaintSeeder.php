@@ -14,16 +14,14 @@ class ComplaintSeeder extends Seeder
         $admin = User::where('email', 'admin@sipfk.test')->firstOrFail();
         $cat = Category::pluck('id', 'name');
 
-        // Komposisi: 5 baru, 4 diproses, 3 selesai (total 12) -> mudah dicek di dashboard
         $data = [
-            // ---- baru ----
+
             ['Ruang Kelas', 'Andi Pratama', 'Gedung A Ruang 201', '2026-11-10', 'Proyektor tidak menyala saat dipakai kuliah.', 'baru', []],
             ['Toilet', 'Siti Rahma', 'Gedung B Lantai 1', '2026-11-11', 'Keran wastafel bocor dan air menggenang.', 'baru', []],
             ['Jaringan & Wi-Fi', 'Budi Santoso', 'Perpustakaan Lantai 2', '2026-11-12', 'Wi-Fi sering terputus sehingga sulit mengakses jurnal.', 'baru', []],
             ['Area Parkir', 'Dewi Lestari', 'Parkir Motor Sisi Barat', '2026-11-13', 'Lampu penerangan parkir mati sehingga area gelap.', 'baru', []],
             ['Laboratorium', 'Rizky Maulana', 'Lab Komputer 3', '2026-11-14', 'Dua unit komputer tidak bisa booting.', 'baru', []],
 
-            // ---- diproses ----
             ['Ruang Kelas', 'Maria Gabriela', 'Gedung A Ruang 105', '2026-11-03', 'AC bocor dan menetes ke meja mahasiswa.', 'diproses',
                 ['Laporan diterima, teknisi dijadwalkan memeriksa AC.']],
             ['Listrik & Penerangan', 'Yohanes Putra', 'Koridor Gedung C', '2026-11-04', 'Beberapa lampu koridor berkedip dan sering mati.', 'diproses',
@@ -33,7 +31,6 @@ class ComplaintSeeder extends Seeder
             ['Toilet', 'Fajar Nugroho', 'Gedung D Lantai 2', '2026-11-06', 'Saluran toilet tersumbat.', 'diproses',
                 ['Petugas kebersihan sedang menangani penyumbatan.']],
 
-            // ---- selesai ----
             ['Ruang Kelas', 'Clara Wijaya', 'Gedung B Ruang 302', '2026-10-28', 'Kursi patah pada baris depan.', 'selesai',
                 ['Kursi diganti dengan yang baru.', 'Pengecekan ulang: kondisi aman.']],
             ['Jaringan & Wi-Fi', 'Daniel Kristian', 'Aula Utama', '2026-10-29', 'Access point Wi-Fi tidak aktif.', 'selesai',

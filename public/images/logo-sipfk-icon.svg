@@ -1,21 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="42" viewBox="120 220 280 325" fill="none">
-  <!-- Outer Shield Base (Left & Right 3D shading) -->
   <path d="M259 228 L128 276 V382 C128 458 182 512 259 536 C336 512 390 458 390 382 V276 L259 228 Z" fill="#152874"/>
   <path d="M259 228 L390 276 V382 C390 458 336 512 259 536 V228 Z" fill="#132366"/>
-  <!-- Inner Recessed Shield (Left & Right halves) -->
   <path d="M259 260 L153 295 V378 C153 438 197 482 259 504 V260 Z" fill="#121D53"/>
   <path d="M259 260 L365 295 V378 C365 438 321 482 259 504 V260 Z" fill="#0F1847"/>
-  <!-- Top Mortarboard Diamond Cap -->
   <polygon points="259,228 128,276 259,312 390,276" fill="#162B7A"/>
   <polygon points="259,228 259,312 390,276" fill="#14266E"/>
-  <!-- White Graduation Cap Crown (with V-cutout following mortarboard) -->
   <polygon points="193,290 259,312 331,290 331,330 193,330" fill="#FFFFFF"/>
-  <!-- White Hanging Tassel (Left) -->
   <rect x="171" y="282" width="5.5" height="46" rx="1" fill="#FFFFFF"/>
   <polygon points="168,325 179.5,325 182,343 165.5,343" fill="#FFFFFF"/>
-  <!-- White Speech Bubble with Bottom-Left Tail -->
   <polygon points="193,344 331,344 331,432 222,432 193,456" fill="#FFFFFF"/>
-  <!-- 4 Square Dots inside Speech Bubble -->
   <rect x="218" y="382" width="12" height="12" fill="#121D53"/>
   <rect x="243" y="382" width="12" height="12" fill="#121D53"/>
   <rect x="269" y="382" width="12" height="12" fill="#121D53"/>
