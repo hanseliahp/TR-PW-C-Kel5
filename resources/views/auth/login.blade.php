@@ -23,7 +23,7 @@
         </li>
         <li class="nav-item" role="presentation">
             <button
-                class="nav-link rounded-pill fw-semibold small py-2 text-secondary"
+                class="nav-link rounded-pill fw-semibold small py-2"
                 id="tab-pelapor"
                 data-bs-toggle="pill"
                 data-bs-target="#panel-pelapor"
