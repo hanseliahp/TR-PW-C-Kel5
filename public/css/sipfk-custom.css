@@ -912,34 +912,82 @@ body {
 
 /* Admin Sidebar Styling (Clean Modern Minimalist) */
 .admin-sidebar-zd {
-    width: 260px;
+    width: 264px;
+    min-width: 264px;
+    max-width: 264px;
+    flex-shrink: 0;
     background-color: #FFFFFF;
     border-right: 1px solid var(--zd-border-light);
-    min-height: calc(100vh - 65px);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
+}
+.admin-sidebar-header {
+    min-height: 64px;
+    padding: 0.75rem 1.15rem;
+    border-bottom: 1px solid var(--zd-border-light);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.admin-topbar-zd {
+    min-height: 64px;
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--zd-border-light);
+}
+.sidebar-section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #94A3B8;
+    padding: 0.5rem 0.85rem 0.35rem;
+    white-space: nowrap;
 }
 .sidebar-link-zd {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.65rem 1rem;
-    color: var(--zd-text-secondary);
+    padding: 0.625rem 0.85rem;
+    color: #475569;
     font-weight: 500;
-    font-size: 0.925rem;
-    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    border-radius: 10px;
     text-decoration: none;
+    white-space: nowrap;
     transition: all 0.15s ease;
     margin-bottom: 0.25rem;
 }
+.sidebar-link-zd i {
+    width: 20px;
+    height: 20px;
+    font-size: 1.05rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #64748B;
+    line-height: 1;
+    transition: color 0.15s ease;
+}
 .sidebar-link-zd:hover {
-    color: var(--zd-text-main);
-    background-color: var(--zd-bg-subtle);
+    color: #0F172A;
+    background-color: #F1F5F9;
+}
+.sidebar-link-zd:hover i {
+    color: #0F172A;
 }
 .sidebar-link-zd.active {
-    color: var(--zd-text-main);
-    background-color: var(--zd-bg-subtle);
+    color: #FFFFFF;
+    background-color: #0F172A;
     font-weight: 600;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+}
+.sidebar-link-zd.active i {
+    color: #FFFFFF;
 }
 
 /* Timeline Components */

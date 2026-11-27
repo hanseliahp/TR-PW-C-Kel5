@@ -27,79 +27,99 @@
     <!-- Aksesibilitas: Skip Link -->
     <a href="#admin-main-content" class="skip-link">Loncat ke Konten Panel Admin</a>
 
-    <!-- Top Navigation Bar (Zendesk Console Style) -->
-    <header>
-        <nav class="navbar navbar-expand navbar-zendesk sticky-top py-2 px-3 px-md-4" aria-label="Navigasi Atas Admin">
-            <div class="container-fluid px-0">
-                <!-- Hamburger Menu Toggler (Mobile / Tablet < 992px) -->
-                <button class="btn btn-outline-secondary d-lg-none me-2 btn-icon-sm rounded-circle" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebarOffcanvas" aria-controls="adminSidebarOffcanvas" aria-label="Buka navigasi panel">
-                    <i class="bi bi-list fs-5" aria-hidden="true"></i>
-                </button>
-
-                <!-- Brand Admin -->
-                <a class="navbar-brand-zd me-3" href="{{ route('admin.dashboard') }}">
+    <div class="d-flex min-vh-100">
+        <!-- Sidebar Desktop Full-Height Sticky (>= 992px) -->
+        <aside class="admin-sidebar-zd d-none d-lg-flex flex-shrink-0 d-print-none" aria-label="Sidebar Navigasi Desktop">
+            <div class="admin-sidebar-header">
+                <a class="navbar-brand-zd" href="{{ route('admin.dashboard') }}">
                     <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="30" height="35" class="brand-logo-shield-sm">
-                    <div class="brand-wordmark d-none d-sm-flex">
+                    <div class="brand-wordmark">
                         <span class="brand-wordmark-title" style="font-size: 1.15rem;">SIPFK.</span>
-                        <span class="brand-wordmark-tagline" style="font-size: 0.48rem;">Layanan Aspirasi &amp; Sarana Prasarana</span>
+                        <span class="brand-wordmark-tagline" style="font-size: 0.48rem;">Panel Administrasi</span>
                     </div>
-                    <span class="badge rounded-pill bg-dark text-white px-2 py-1 ms-1" style="font-size: 0.68rem;">Admin</span>
+                    <span class="badge rounded-pill bg-dark text-white px-2 py-1 ms-1" style="font-size: 0.65rem;">Admin</span>
                 </a>
-
-                <!-- Navigasi Kanan (User & Logout) -->
-                <div class="ms-auto d-flex align-items-center gap-2 gap-md-3">
-                    <a href="{{ url('/') }}" target="_blank" class="btn btn-light btn-sm text-secondary border rounded-pill d-none d-md-inline-flex align-items-center gap-1 px-3" title="Lihat Tampilan Publik Form Pengaduan">
-                        <i class="bi bi-box-arrow-up-right small"></i>
-                        <span>Web Publik</span>
-                    </a>
-
-                    <!-- User Identity Badge (Zendesk Pill) -->
-                    <div class="d-flex align-items-center gap-2 ps-2 border-start">
-                        <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-dark text-white rounded-circle" style="width: 34px; height: 34px; font-size: 0.95rem;">
-                            <i class="bi bi-person-fill" aria-hidden="true"></i>
-                        </div>
-                        <div class="d-none d-sm-block text-start lh-1">
-                            <span class="d-block fw-semibold text-dark small">{{ Auth::user()->name ?? 'Admin SIPFK' }}</span>
-                            <span class="text-muted" style="font-size: 0.72rem;">Divisi Pemeliharaan</span>
-                        </div>
-                    </div>
-
-                    <!-- Logout Button Form -->
-                    <form method="POST" action="{{ route('logout') }}" class="d-inline ms-1">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill d-inline-flex align-items-center gap-1 px-3" title="Keluar dari Panel Admin">
-                            <i class="bi bi-box-arrow-right"></i>
-                            <span class="d-none d-md-inline">Keluar</span>
-                        </button>
-                    </form>
-                </div>
             </div>
-        </nav>
-    </header>
-
-    <div class="container-fluid px-0">
-        <div class="d-flex">
-            <!-- Sidebar Desktop (Sticky & Visible at >= 992px) -->
-            <aside class="admin-sidebar-zd d-none d-lg-flex p-3" aria-label="Sidebar Navigasi Desktop">
+            <div class="p-3 flex-grow-1 d-flex flex-column overflow-y-auto">
                 @include('layouts.partials.admin-nav-links')
-            </aside>
+            </div>
+        </aside>
 
-            <!-- Sidebar Mobile (Bootstrap Offcanvas < 992px) -->
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="adminSidebarOffcanvas" aria-labelledby="adminSidebarOffcanvasLabel" style="width: 280px;">
-                <div class="offcanvas-header border-bottom py-3">
-                    <div class="d-flex align-items-center gap-2">
-                        <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="30" height="35" class="brand-logo-shield-sm">
-                        <div class="brand-wordmark">
-                            <h5 class="offcanvas-title brand-wordmark-title mb-0" id="adminSidebarOffcanvasLabel" style="font-size: 1.15rem;">SIPFK.</h5>
-                            <span class="brand-wordmark-tagline" style="font-size: 0.5rem;">Menu Navigasi Panel Admin</span>
+        <!-- Sidebar Mobile (Bootstrap Offcanvas < 992px) -->
+        <div class="offcanvas offcanvas-start d-print-none" tabindex="-1" id="adminSidebarOffcanvas" aria-labelledby="adminSidebarOffcanvasLabel" style="width: 280px;">
+            <div class="offcanvas-header border-bottom py-3">
+                <div class="d-flex align-items-center gap-2">
+                    <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="30" height="35" class="brand-logo-shield-sm">
+                    <div class="brand-wordmark">
+                        <h5 class="offcanvas-title brand-wordmark-title mb-0" id="adminSidebarOffcanvasLabel" style="font-size: 1.15rem;">SIPFK.</h5>
+                        <span class="brand-wordmark-tagline" style="font-size: 0.5rem;">Menu Navigasi Panel Admin</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Tutup menu"></button>
+            </div>
+            <div class="offcanvas-body p-3">
+                @include('layouts.partials.admin-nav-links')
+            </div>
+        </div>
+
+        <!-- Kolom Kanan: Topbar (Tidak Sticky) + Area Konten Utama -->
+        <div class="flex-grow-1 d-flex flex-column" style="min-width: 0;">
+            <!-- Top Navigation Bar (Ikut scroll halaman agar sidebar tetap utuh dari atas) -->
+            <header class="d-print-none">
+                <nav class="navbar navbar-expand admin-topbar-zd px-3 px-md-4 py-2" aria-label="Navigasi Atas Admin">
+                    <div class="container-fluid px-0">
+                        <!-- Hamburger & Brand Mobile (< 992px) -->
+                        <div class="d-flex align-items-center d-lg-none">
+                            <button class="btn btn-outline-secondary me-2 btn-icon-sm rounded-circle" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebarOffcanvas" aria-controls="adminSidebarOffcanvas" aria-label="Buka navigasi panel">
+                                <i class="bi bi-list fs-5" aria-hidden="true"></i>
+                            </button>
+                            <a class="navbar-brand-zd me-2" href="{{ route('admin.dashboard') }}">
+                                <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="30" height="35" class="brand-logo-shield-sm">
+                                <div class="brand-wordmark d-none d-sm-flex">
+                                    <span class="brand-wordmark-title" style="font-size: 1.15rem;">SIPFK.</span>
+                                    <span class="brand-wordmark-tagline" style="font-size: 0.48rem;">Layanan Aspirasi &amp; Sarana Prasarana</span>
+                                </div>
+                                <span class="badge rounded-pill bg-dark text-white px-2 py-1 ms-1" style="font-size: 0.68rem;">Admin</span>
+                            </a>
+                        </div>
+
+                        <!-- Konteks Panel Desktop (>= 992px) -->
+                        <div class="d-none d-lg-flex align-items-center gap-2 text-secondary small">
+                            <span class="fw-medium text-dark">Panel Pengelolaan Sarpras Kampus</span>
+                            <span class="text-muted">&bull;</span>
+                            <span class="text-muted">FTI UKSW</span>
+                        </div>
+
+                        <!-- Navigasi Kanan (User & Logout) -->
+                        <div class="ms-auto d-flex align-items-center gap-2 gap-md-3">
+                            <a href="{{ url('/') }}" target="_blank" class="btn btn-light btn-sm text-secondary border rounded-pill d-none d-md-inline-flex align-items-center gap-1 px-3" title="Lihat Tampilan Publik Form Pengaduan">
+                                <i class="bi bi-box-arrow-up-right small"></i>
+                                <span>Web Publik</span>
+                            </a>
+
+                            <!-- User Identity Badge (Zendesk Pill) -->
+                            <div class="d-flex align-items-center gap-2 ps-2 border-start">
+                                <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-dark text-white rounded-circle" style="width: 34px; height: 34px; font-size: 0.95rem;">
+                                    <i class="bi bi-person-fill" aria-hidden="true"></i>
+                                </div>
+                                <div class="d-none d-sm-block text-start lh-1">
+                                    <span class="d-block fw-semibold text-dark small">{{ Auth::user()->name ?? 'Admin SIPFK' }}</span>
+                                    <span class="text-muted" style="font-size: 0.72rem;">Divisi Pemeliharaan</span>
+                                </div>
+                            </div>
+
+                            <!-- Logout Button Form -->
+                            <form method="POST" action="{{ route('logout') }}" class="d-inline ms-1">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill d-inline-flex align-items-center gap-1 px-3" title="Keluar dari Panel Admin">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span class="d-none d-md-inline">Keluar</span>
+                                </button>
+                            </form>
                         </div>
                     </div>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Tutup menu"></button>
-                </div>
-                <div class="offcanvas-body p-3">
-                    @include('layouts.partials.admin-nav-links')
-                </div>
-            </div>
+                </nav>
+            </header>
 
             <!-- Area Konten Utama Panel Admin -->
             <main id="admin-main-content" class="flex-grow-1 p-3 p-md-4 p-xl-5" style="min-width: 0;">

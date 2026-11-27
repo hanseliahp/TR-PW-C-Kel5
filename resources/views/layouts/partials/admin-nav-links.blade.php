@@ -4,13 +4,13 @@
 --}}
 
 <div class="d-flex flex-column h-100">
-    <div class="text-uppercase tracking-wider fw-bold text-muted small px-3 py-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Ringkasan & Analisis</div>
+    <div class="sidebar-section-label">Ringkasan &amp; Analisis</div>
     <a href="{{ route('admin.dashboard') }}" class="sidebar-link-zd {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
         <i class="bi bi-grid-1x2-fill"></i>
         <span>Dashboard Ringkasan</span>
     </a>
 
-    <div class="text-uppercase tracking-wider fw-bold text-muted small px-3 pt-3 pb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Manajemen Data</div>
+    <div class="sidebar-section-label mt-3">Manajemen Data</div>
     <a href="{{ route('admin.complaints.index') }}" class="sidebar-link-zd {{ request()->routeIs('admin.complaints.*') ? 'active' : '' }}">
         <i class="bi bi-card-checklist"></i>
         <span>Daftar Pengaduan</span>
@@ -20,7 +20,7 @@
         <span>Kategori Fasilitas</span>
     </a>
 
-    <div class="text-uppercase tracking-wider fw-bold text-muted small px-3 pt-3 pb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Dokumentasi & Laporan</div>
+    <div class="sidebar-section-label mt-3">Dokumentasi &amp; Laporan</div>
     <a href="{{ route('admin.reports.index') }}" class="sidebar-link-zd {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
         <i class="bi bi-file-earmark-pdf-fill"></i>
         <span>Laporan Pengaduan</span>
@@ -28,10 +28,11 @@
 
     <hr class="my-3 text-secondary opacity-25">
 
-    <div class="text-uppercase tracking-wider fw-bold text-muted small px-3 pb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Tautan Eksternal</div>
+    <div class="sidebar-section-label">Tautan Eksternal</div>
     <a href="{{ url('/') }}" target="_blank" class="sidebar-link-zd">
-        <i class="bi bi-box-arrow-up-right"></i>
-        <span>Formulir Pengaduan Publik</span>
+        <i class="bi bi-globe2"></i>
+        <span>Web Pengaduan Publik</span>
+        <i class="bi bi-arrow-up-right ms-auto" style="width: auto; font-size: 0.75rem; opacity: 0.65;"></i>
     </a>
 
     <div class="mt-auto pt-4">
