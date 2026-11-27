@@ -92,7 +92,7 @@
                             </a>
 
                             <div class="d-flex align-items-center gap-2 ps-2 border-start">
-                                <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-dark text-white rounded-circle" style="width: 34px; height: 34px; font-size: 0.95rem;">
+                                <div class="admin-user-avatar d-flex align-items-center justify-content-center bg-dark text-white rounded-circle flex-shrink-0" style="width: 36px; height: 36px; font-size: 1.05rem;">
                                     <i class="bi bi-person-fill" aria-hidden="true"></i>
                                 </div>
                                 <div class="d-none d-sm-block text-start lh-1">

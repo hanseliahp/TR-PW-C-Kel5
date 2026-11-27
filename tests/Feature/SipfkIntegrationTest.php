@@ -41,7 +41,7 @@ class SipfkIntegrationTest extends TestCase
     {
         $response = $this->get('/login');
         $response->assertStatus(200);
-        $response->assertSee('Masuk ke Panel Pengelola');
+        $response->assertSee('Masuk Panel Administrator');
     }
 
     public function test_admin_can_login_with_correct_credentials(): void

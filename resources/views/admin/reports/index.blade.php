@@ -14,7 +14,7 @@
         <i class="bi bi-printer-fill"></i>
         <span>Cetak Tampilan</span>
     </button>
-    <a href="#" class="btn-pill-dark" style="padding: 0.5rem 1.25rem; font-size: 0.875rem;" title="Fitur Ekspor PDF (Diintegrasikan oleh Anggota 5)">
+    <a href="{{ route('admin.reports.pdf', request()->query()) }}" class="btn-pill-dark" style="padding: 0.5rem 1.25rem; font-size: 0.875rem;" title="Unduh Berkas Laporan Resmi PDF">
         <i class="bi bi-file-earmark-pdf-fill"></i>
         <span>Unduh File PDF</span>
     </a>
@@ -65,7 +65,7 @@
         <h2 class="h5 fw-bold text-dark text-uppercase mb-1 mt-2">Sistem Informasi Pengaduan Fasilitas Kampus (SIPFK)</h2>
         <h3 class="h6 fw-normal text-secondary mb-1">Laporan Rekapitulasi Penanganan Sarana dan Prasarana</h3>
         <div class="small text-muted">
-            Periode: <strong>{{ request('start_date', date('01 M Y')) }}</strong> s.d. <strong>{{ request('end_date', date('d M Y')) }}</strong> &bull; Dicetak: {{ date('d F Y, H:i') }} WIB
+            Periode: <strong>{{ request('start_date') ? date('d M Y', strtotime(request('start_date'))) : 'Semua Data' }}</strong> s.d. <strong>{{ request('end_date') ? date('d M Y', strtotime(request('end_date'))) : date('d M Y') }}</strong> &bull; Dicetak: {{ date('d F Y, H:i') }} WIB
         </div>
     </div>
 
@@ -83,46 +83,51 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">17/11/2026</td>
-                    <td>Budi Pratama</td>
-                    <td>Teknologi Informasi</td>
-                    <td>Gedung B, Lab Komputer</td>
-                    <td>Kabel HDMI proyektor putus, tampilan tidak muncul.</td>
-                    <td class="text-center">
-                        <span class="badge-status badge-status-baru"><span class="badge-status-dot"></span> Baru</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-center">16/11/2026</td>
-                    <td>Siti Nurhaliza</td>
-                    <td>Air & Sanitasi</td>
-                    <td>Gedung A, Toilet Lantai 1</td>
-                    <td>Kran wastafel bocor dan menggenangi koridor.</td>
-                    <td class="text-center">
-                        <span class="badge-status badge-status-diproses"><span class="badge-status-dot"></span> Diproses</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center">15/11/2026</td>
-                    <td>Hendro Santoso</td>
-                    <td>Listrik & Kelistrikan</td>
-                    <td>Ruang Dosen Gedung C</td>
-                    <td>Lampu berkedip dan stop kontak mengeluarkan bau hangus.</td>
-                    <td class="text-center">
-                        <span class="badge-status badge-status-selesai"><span class="badge-status-dot"></span> Selesai</span>
-                    </td>
-                </tr>
+                @forelse($complaints as $index => $c)
+                    <tr>
+                        <td class="text-center">{{ $index + 1 }}</td>
+                        <td class="text-center">{{ date('d/m/Y', strtotime($c->reported_at)) }}</td>
+                        <td><span class="fw-semibold text-dark">{{ $c->reporter_name }}</span></td>
+                        <td>{{ $c->category->name ?? '-' }}</td>
+                        <td>{{ $c->location }}</td>
+                        <td>
+                            <div>{{ $c->description }}</div>
+                            @if($c->followUps->isNotEmpty())
+                                <div class="mt-1 p-2 bg-light rounded border-start border-3 border-info small" style="font-size: 0.75rem;">
+                                    <strong class="text-secondary d-block">Catatan Tindak Lanjut:</strong>
+                                    @foreach($c->followUps as $fu)
+                                        <div class="text-muted">
+                                            &bull; <span class="fw-medium text-dark">{{ $fu->admin->name ?? 'Admin' }}</span>: {{ $fu->note }}
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            @if($c->status === 'baru')
+                                <span class="badge-status badge-status-baru"><span class="badge-status-dot"></span> Baru</span>
+                            @elseif($c->status === 'diproses')
+                                <span class="badge-status badge-status-diproses"><span class="badge-status-dot"></span> Diproses</span>
+                            @else
+                                <span class="badge-status badge-status-selesai"><span class="badge-status-dot"></span> Selesai</span>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-3 d-block mb-1"></i>
+                            <em>Tidak ada data pengaduan yang sesuai dengan kriteria filter.</em>
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
 
     <div class="mt-4 pt-3 border-top d-flex justify-content-between text-muted small">
         <div>SIPFK TRAS Kelompok G5 &bull; Dicetak oleh: {{ Auth::user()->name ?? 'Admin SIPFK' }}</div>
-        <div>Total Data: 3 Rekapitulasi</div>
+        <div>Total Data: {{ $complaints->count() }} Rekapitulasi</div>
     </div>
 </div>
 @endsection
