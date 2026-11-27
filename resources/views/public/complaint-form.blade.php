@@ -10,8 +10,7 @@
 <section class="bg-aura-hero text-white pt-5 pb-5 mb-5">
     <div class="container py-3 py-lg-4 text-center">
         <!-- Badge Micro Header -->
-        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-4" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
-            <span class="badge rounded-pill bg-primary" style="font-size: 0.72rem; padding: 0.35rem 0.65rem;">Resmi</span>
+        <div class="d-inline-flex align-items-center px-3 py-1 rounded-pill mb-4" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
             <span class="small text-white fw-medium">Layanan Aspirasi & Sarana Prasarana Kampus</span>
         </div>
 
@@ -204,7 +203,7 @@
                                     name="reporter_name" 
                                     class="form-control form-control-zd @error('reporter_name') is-invalid @enderror" 
                                     value="{{ old('reporter_name') }}" 
-                                    placeholder="Contoh: Budi Santoso / Siti Rahmawati" 
+                                    placeholder="Contoh: Kim Dokja / Wifies" 
                                     required 
                                     maxlength="100"
                                     autocomplete="name"
@@ -229,7 +228,7 @@
                                     class="form-select form-select-zd @error('category_id') is-invalid @enderror" 
                                     required
                                 >
-                                    <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>-- Pilih Kategori Kerusakan Fasilitas --</option>
+                                    <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>Pilih Kategori Kerusakan Fasilitas</option>
                                     @if(isset($categories) && count($categories) > 0)
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>

@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Masuk Administrator') &mdash; SIPFK</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo-sipfk-icon.svg') }}">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +19,7 @@
     <!-- Bootstrap Icons 1.11.3 -->
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css';">
     <!-- SIPFK Custom Design System -->
-    <link rel="stylesheet" href="{{ asset('css/sipfk-custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sipfk-custom.css') }}?v={{ filemtime(public_path('css/sipfk-custom.css')) }}">
 
     @stack('styles')
 </head>
@@ -31,13 +32,13 @@
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                 <!-- Brand Header Atas -->
                 <div class="text-center mb-4">
-                    <a href="{{ url('/') }}" class="text-decoration-none d-inline-flex align-items-center gap-2 mb-2">
-                        <div class="brand-icon-box bg-white text-dark shadow-sm" style="width: 44px; height: 44px; font-size: 1.35rem; border-radius: 12px;">
-                            <i class="bi bi-buildings-fill" aria-hidden="true"></i>
+                    <a href="{{ url('/') }}" class="text-decoration-none d-inline-flex align-items-center gap-3">
+                        <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="48" height="55" class="brand-logo-shield-lg">
+                        <div class="brand-wordmark brand-wordmark-lg brand-wordmark-light">
+                            <span class="brand-wordmark-title">SIPFK.</span>
+                            <span class="brand-wordmark-tagline">Layanan Aspirasi &amp;<br>Sarana Prasarana Kampus</span>
                         </div>
-                        <span class="navbar-brand-zd text-white fs-3">SIPFK<span style="color: var(--zd-accent-purple-lt);">.</span></span>
                     </a>
-                    <p class="text-light opacity-75 small mb-0">Sistem Informasi Pengaduan Fasilitas Kampus</p>
                 </div>
 
                 <div id="auth-card">

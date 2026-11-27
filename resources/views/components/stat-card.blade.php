@@ -26,7 +26,7 @@
     <div class="stat-card-accent-bar" aria-hidden="true"></div>
     <div class="d-flex align-items-start justify-content-between mb-2">
         <span class="stat-card-label">{{ $title }}</span>
-        <div class="stat-card-icon-bubble" style="{{ $iconBubbleStyle }}" aria-hidden="true">
+        <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center" style="{{ $iconBubbleStyle }}" aria-hidden="true">
             <i class="bi {{ $icon }}"></i>
         </div>
     </div>

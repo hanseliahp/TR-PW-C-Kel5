@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'SIPFK - Solusi Nyata Penanganan Fasilitas Kampus')</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo-sipfk-icon.svg') }}">
 
     <!-- Google Fonts: Plus Jakarta Sans (Human-crafted Modern Civic Typography) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +19,7 @@
     <!-- Bootstrap Icons 1.11.3 -->
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css';">
     <!-- SIPFK Design System -->
-    <link rel="stylesheet" href="{{ asset('css/sipfk-custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sipfk-custom.css') }}?v={{ filemtime(public_path('css/sipfk-custom.css')) }}">
 
     @stack('styles')
 </head>
@@ -32,10 +33,11 @@
             <div class="container">
                 <!-- Brand Logo -->
                 <a class="navbar-brand-zd" href="{{ url('/') }}">
-                    <div class="brand-icon-box" aria-hidden="true">
-                        <i class="bi bi-buildings-fill"></i>
+                    <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="34" height="39" class="brand-logo-shield">
+                    <div class="brand-wordmark">
+                        <span class="brand-wordmark-title">SIPFK.</span>
+                        <span class="brand-wordmark-tagline">Layanan Aspirasi &amp;<br>Sarana Prasarana Kampus</span>
                     </div>
-                    <span>SIPFK<span style="color: var(--zd-accent-purple);">.</span></span>
                 </a>
 
                 <!-- Mobile Hamburger Toggler -->
@@ -95,20 +97,21 @@
             <div class="row g-4 mb-5">
                 <!-- Brand & Mission -->
                 <div class="col-12 col-lg-4">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <div class="brand-icon-box" style="width: 32px; height: 32px; font-size: 1rem;">
-                            <i class="bi bi-buildings-fill"></i>
+                    <a href="{{ url('/') }}" class="d-inline-flex align-items-center gap-2 text-decoration-none mb-3">
+                        <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="34" height="39" class="brand-logo-shield">
+                        <div class="brand-wordmark">
+                            <span class="brand-wordmark-title">SIPFK.</span>
+                            <span class="brand-wordmark-tagline">Layanan Aspirasi &amp;<br>Sarana Prasarana Kampus</span>
                         </div>
-                        <span class="navbar-brand-zd fs-5">SIPFK<span style="color: var(--zd-accent-purple);">.</span></span>
-                    </div>
+                    </a>
                     <p class="text-secondary small mb-4 pe-lg-4" style="line-height: 1.7;">
                         Sistem Informasi Pengaduan Fasilitas Kampus adalah platform terpadu pencatatan kerusakan sarana, verifikasi divisi pemeliharaan, serta pemantauan tindak lanjut secara transparan dan akuntabel.
                     </p>
                     <div class="d-flex align-items-center gap-3 text-secondary">
-                        <a href="#" class="text-secondary fs-5" aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="text-secondary fs-5" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="text-secondary fs-5" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                        <a href="#" class="text-secondary fs-5" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.instagram.com/ftisarpras/" target="_blank" rel="noopener noreferrer" class="text-secondary fs-5" aria-label="Instagram Sarpras FTI UKSW" title="Instagram Sarpras FTI UKSW (@ftisarpras)"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.youtube.com/@LaboranFTIUKSW" target="_blank" rel="noopener noreferrer" class="text-secondary fs-5" aria-label="YouTube Laboran FTI UKSW" title="YouTube Laboran FTI UKSW"><i class="bi bi-youtube"></i></a>
+                        <a href="https://fti.uksw.edu/" target="_blank" rel="noopener noreferrer" class="text-secondary fs-5" aria-label="Website Resmi FTI UKSW" title="Website Resmi FTI UKSW"><i class="bi bi-globe2"></i></a>
+                        <a href="mailto:fti.laboran@adm.uksw.edu" class="text-secondary fs-5" aria-label="Email Sarpras FTI UKSW" title="Email Sarpras FTI UKSW (fti.laboran@adm.uksw.edu)"><i class="bi bi-envelope-fill"></i></a>
                     </div>
                 </div>
 

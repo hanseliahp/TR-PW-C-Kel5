@@ -124,7 +124,7 @@
                 <div class="p-2 p-sm-3 rounded-3 border bg-light text-secondary small">
                     <div class="fw-bold text-dark d-flex align-items-center gap-1 mb-1">
                         <i class="bi bi-key-fill text-primary"></i>
-                        <span>Kredensial Demo Uji (Seeder):</span>
+                        <span>Kredensial Demo Uji:</span>
                     </div>
                     <div class="d-flex justify-content-between mb-1">
                         <span>Email:</span>
@@ -144,7 +144,7 @@
              ========================================== --}}
         <div class="tab-pane fade" id="panel-pelapor" role="tabpanel" aria-labelledby="tab-pelapor">
             <div class="text-center py-2">
-                <div class="stat-card-icon-bubble bg-primary-subtle text-primary mx-auto mb-3" style="width: 50px; height: 50px; font-size: 1.35rem; border-radius: 14px;">
+                <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary mx-auto mb-3" style="width: 50px; height: 50px; font-size: 1.35rem; border-radius: 14px;">
                     <i class="bi bi-megaphone-fill"></i>
                 </div>
                 <h2 class="h5 fw-bold text-dark mb-2">Pelapor Tidak Memerlukan Akun</h2>
@@ -153,10 +153,7 @@
                 </p>
 
                 <div class="p-3 rounded-3 border bg-light text-start mb-3 small text-secondary">
-                    <div class="fw-semibold text-dark mb-1 d-flex align-items-center gap-1">
-                        <i class="bi bi-lightning-charge-fill text-warning"></i>
-                        <span>Keuntungan Alur Tanpa Akun:</span>
-                    </div>
+                    <div class="fw-semibold text-dark mb-1">Keuntungan Alur Tanpa Akun:</div>
                     <ul class="mb-0 ps-3">
                         <li>Pengaduan dapat dikirimkan secara instan saat kendala terjadi di kelas.</li>
                         <li>Tidak terhalang lupa kata sandi atau kendala aktivasi akun email.</li>

@@ -35,9 +35,12 @@
     </a>
 
     <div class="mt-auto pt-4">
-        <div class="p-3 bg-light rounded-3 border small text-muted" style="border-radius: var(--radius-md) !important;">
-            <div class="fw-bold text-dark mb-1">SIPFK v1.0</div>
-            <div>Sistem Pengaduan Sarana Kampus &bull; Kelompok G5</div>
+        <div class="p-3 bg-light rounded-3 border small text-muted d-flex align-items-center gap-2" style="border-radius: var(--radius-md) !important;">
+            <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="28" height="32" style="width: 28px; height: 32px; flex-shrink: 0;">
+            <div class="lh-sm">
+                <div class="fw-bold text-dark">SIPFK. <span class="fw-normal text-muted" style="font-size: 0.7rem;">v1.0</span></div>
+                <div style="font-size: 0.72rem;">Layanan Aspirasi &amp; Sarana Prasarana Kampus</div>
+            </div>
         </div>
     </div>
 </div>

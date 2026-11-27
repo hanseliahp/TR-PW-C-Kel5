@@ -81,7 +81,7 @@
         {{-- Form Ubah Status Pengaduan (FR-06, BR-03) --}}
         <div class="card card-sipfk border-0 shadow-sm p-4 bg-white" style="border-radius: var(--radius-xl);">
             <div class="d-flex align-items-center gap-2 mb-2">
-                <div class="stat-card-icon-bubble bg-light text-primary" style="width: 32px; height: 32px;">
+                <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-light text-primary" style="width: 32px; height: 32px; border-radius: 8px;">
                     <i class="bi bi-arrow-repeat"></i>
                 </div>
                 <h3 class="h6 fw-bold text-dark mb-0">Perbarui Status Penanganan</h3>
@@ -121,7 +121,7 @@
         {{-- Form Input Catatan Tindak Lanjut (FR-07, BR-05) --}}
         <div class="card card-sipfk border-0 shadow-sm p-4 mb-4 bg-white" style="border-radius: var(--radius-xl);">
             <div class="d-flex align-items-center gap-2 mb-3">
-                <div class="stat-card-icon-bubble bg-primary-subtle text-primary" style="width: 32px; height: 32px;">
+                <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary" style="width: 32px; height: 32px; border-radius: 8px;">
                     <i class="bi bi-journal-plus"></i>
                 </div>
                 <h3 class="h6 fw-bold text-dark mb-0">Tambah Catatan Tindak Lanjut</h3>

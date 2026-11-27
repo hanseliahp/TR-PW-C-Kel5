@@ -56,7 +56,14 @@
 <div class="card card-sipfk border-0 shadow-sm p-4 p-md-5 bg-white" style="border-radius: var(--radius-xl);">
     {{-- Header Kop Laporan Kampus --}}
     <div class="text-center border-bottom pb-4 mb-4">
-        <h2 class="h5 fw-bold text-dark text-uppercase mb-1">Sistem Informasi Pengaduan Fasilitas Kampus (SIPFK)</h2>
+        <div class="d-inline-flex align-items-center justify-content-center gap-3 mb-2">
+            <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="44" height="51" style="width: 44px; height: 51px;">
+            <div class="brand-wordmark text-start">
+                <span class="brand-wordmark-title" style="font-size: 1.55rem;">SIPFK.</span>
+                <span class="brand-wordmark-tagline" style="font-size: 0.62rem;">Layanan Aspirasi &amp; Sarana Prasarana Kampus</span>
+            </div>
+        </div>
+        <h2 class="h5 fw-bold text-dark text-uppercase mb-1 mt-2">Sistem Informasi Pengaduan Fasilitas Kampus (SIPFK)</h2>
         <h3 class="h6 fw-normal text-secondary mb-1">Laporan Rekapitulasi Penanganan Sarana dan Prasarana</h3>
         <div class="small text-muted">
             Periode: <strong>{{ request('start_date', date('01 M Y')) }}</strong> s.d. <strong>{{ request('end_date', date('d M Y')) }}</strong> &bull; Dicetak: {{ date('d F Y, H:i') }} WIB

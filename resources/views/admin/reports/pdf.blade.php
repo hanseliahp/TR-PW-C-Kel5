@@ -102,8 +102,20 @@
 </head>
 <body>
 
+    @php
+        $logoSvgPath = public_path('images/logo-sipfk-icon.svg');
+        $logoDataUri = file_exists($logoSvgPath)
+            ? 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($logoSvgPath))
+            : null;
+    @endphp
+
     <div class="header">
-        <h1 class="title">SIPFK &mdash; Sistem Informasi Pengaduan Fasilitas Kampus</h1>
+        @if($logoDataUri)
+            <div style="margin-bottom: 6px;">
+                <img src="{{ $logoDataUri }}" alt="Logo SIPFK" style="width: 38px; height: 44px; vertical-align: middle;">
+            </div>
+        @endif
+        <h1 class="title">SIPFK. &mdash; Layanan Aspirasi &amp; Sarana Prasarana Kampus</h1>
         <p class="subtitle">Laporan Rekapitulasi Penanganan Sarana dan Prasarana Kampus</p>
         <div class="meta">
             Periode: <strong>{{ $startDateFormatted }}</strong> s/d <strong>{{ $endDateFormatted }}</strong>

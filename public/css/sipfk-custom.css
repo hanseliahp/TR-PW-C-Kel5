@@ -262,9 +262,14 @@ body {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--zd-border-light);
-    padding-top: 0.85rem;
-    padding-bottom: 0.85rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
     transition: all 0.2s ease;
+}
+.navbar-zendesk .nav-link,
+.navbar-zendesk .btn-pill-dark,
+.navbar-zendesk .btn-link {
+    white-space: nowrap;
 }
 .navbar-brand-zd {
     font-family: var(--font-display);
@@ -287,6 +292,114 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.15rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.stat-card-icon-bubble,
+.btn-icon-sm {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.stat-card-icon-bubble i,
+.stat-card-icon-bubble .bi,
+.brand-icon-box i,
+.brand-icon-box .bi,
+.chat-avatar i,
+.chat-avatar .bi,
+.stepper-marker i,
+.stepper-marker .bi,
+.btn-icon-sm i,
+.btn-icon-sm .bi {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* SIPFK Shield Brand Logo & Lockup */
+.navbar-brand-zd {
+    flex-shrink: 0;
+    gap: 0.55rem;
+}
+.brand-logo-shield {
+    width: 34px;
+    height: 39px;
+    flex-shrink: 0;
+    display: block;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+}
+.navbar-brand-zd:hover .brand-logo-shield,
+.navbar-brand-zd:hover .brand-logo-shield-sm {
+    transform: scale(1.04);
+}
+.brand-logo-shield-sm {
+    width: 30px;
+    height: 35px;
+    flex-shrink: 0;
+    display: block;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+}
+.brand-logo-shield-lg {
+    width: 48px;
+    height: 55px;
+    flex-shrink: 0;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+}
+.brand-wordmark {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.05;
+    text-align: left;
+    flex-shrink: 0;
+}
+.brand-wordmark-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: -0.025em;
+    color: var(--zd-text-main);
+    line-height: 1;
+    white-space: nowrap;
+}
+.brand-wordmark-tagline {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.5rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--zd-text-secondary);
+    line-height: 1.2;
+    margin-top: 2px;
+    white-space: nowrap;
+}
+.brand-wordmark-lg .brand-wordmark-title {
+    font-size: 1.85rem;
+    letter-spacing: -0.03em;
+}
+.brand-wordmark-lg .brand-wordmark-tagline {
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    line-height: 1.25;
+    margin-top: 3px;
+}
+.brand-wordmark-light .brand-wordmark-title {
+    color: #FFFFFF;
+}
+.brand-wordmark-light .brand-wordmark-tagline {
+    color: rgba(255, 255, 255, 0.85);
 }
 
 /* Hero Showcase Card with Live Interactive Mockup (Image 1 Reference) */

@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Admin Panel') &mdash; SIPFK</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo-sipfk-icon.svg') }}">
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +19,7 @@
     <!-- Bootstrap Icons 1.11.3 -->
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css';">
     <!-- SIPFK Design System -->
-    <link rel="stylesheet" href="{{ asset('css/sipfk-custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sipfk-custom.css') }}?v={{ filemtime(public_path('css/sipfk-custom.css')) }}">
 
     @stack('styles')
 </head>
@@ -37,10 +38,11 @@
 
                 <!-- Brand Admin -->
                 <a class="navbar-brand-zd me-3" href="{{ route('admin.dashboard') }}">
-                    <div class="brand-icon-box" style="width: 32px; height: 32px; font-size: 1rem; border-radius: 8px;">
-                        <i class="bi bi-buildings-fill" aria-hidden="true"></i>
+                    <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="30" height="35" class="brand-logo-shield-sm">
+                    <div class="brand-wordmark d-none d-sm-flex">
+                        <span class="brand-wordmark-title" style="font-size: 1.15rem;">SIPFK.</span>
+                        <span class="brand-wordmark-tagline" style="font-size: 0.48rem;">Layanan Aspirasi &amp; Sarana Prasarana</span>
                     </div>
-                    <span class="fs-6 fw-bold text-dark d-none d-sm-inline">SIPFK Control</span>
                     <span class="badge rounded-pill bg-dark text-white px-2 py-1 ms-1" style="font-size: 0.68rem;">Admin</span>
                 </a>
 
@@ -53,7 +55,7 @@
 
                     <!-- User Identity Badge (Zendesk Pill) -->
                     <div class="d-flex align-items-center gap-2 ps-2 border-start">
-                        <div class="stat-card-icon-bubble bg-dark text-white rounded-circle" style="width: 34px; height: 34px; font-size: 0.95rem;">
+                        <div class="stat-card-icon-bubble d-inline-flex align-items-center justify-content-center bg-dark text-white rounded-circle" style="width: 34px; height: 34px; font-size: 0.95rem;">
                             <i class="bi bi-person-fill" aria-hidden="true"></i>
                         </div>
                         <div class="d-none d-sm-block text-start lh-1">
@@ -86,10 +88,11 @@
             <div class="offcanvas offcanvas-start" tabindex="-1" id="adminSidebarOffcanvas" aria-labelledby="adminSidebarOffcanvasLabel" style="width: 280px;">
                 <div class="offcanvas-header border-bottom py-3">
                     <div class="d-flex align-items-center gap-2">
-                        <div class="brand-icon-box" style="width: 30px; height: 30px; font-size: 0.9rem;">
-                            <i class="bi bi-buildings-fill"></i>
+                        <img src="{{ asset('images/logo-sipfk-icon.svg') }}" alt="Logo SIPFK" width="30" height="35" class="brand-logo-shield-sm">
+                        <div class="brand-wordmark">
+                            <h5 class="offcanvas-title brand-wordmark-title mb-0" id="adminSidebarOffcanvasLabel" style="font-size: 1.15rem;">SIPFK.</h5>
+                            <span class="brand-wordmark-tagline" style="font-size: 0.5rem;">Menu Navigasi Panel Admin</span>
                         </div>
-                        <h5 class="offcanvas-title fs-6 fw-bold mb-0 text-dark" id="adminSidebarOffcanvasLabel">Menu Navigasi</h5>
                     </div>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Tutup menu"></button>
                 </div>
